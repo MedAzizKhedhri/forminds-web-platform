@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.ts";
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --primary: 207 90% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 213 30% 95%;
+    --secondary-foreground: 220 20% 20%;
+    --muted: 216 20% 95%;
+    --muted-foreground: 220 10% 46%;
+    --accent: 213 30% 93%;
+    --accent-foreground: 220 20% 20%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 216 20% 90%;
+    --input: 216 20% 90%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --ring: 207 90% 54%;
+    --radius: 0.625rem;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 224 30% 7%;
+    --foreground: 210 20% 94%;
+    --card: 224 25% 10%;
+    --card-foreground: 210 20% 94%;
+    --primary: 207 90% 60%;
+    --primary-foreground: 224 30% 7%;
+    --secondary: 220 20% 16%;
+    --secondary-foreground: 210 20% 94%;
+    --muted: 220 20% 16%;
+    --muted-foreground: 215 15% 60%;
+    --accent: 220 20% 16%;
+    --accent-foreground: 210 20% 94%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 210 20% 94%;
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --popover: 224 25% 10%;
+    --popover-foreground: 210 20% 94%;
+    --ring: 207 90% 55%;
+    --radius: 0.625rem;
+    --success: 142 70% 40%;
+    --success-foreground: 210 20% 94%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 224 30% 7%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  .animate-slideUp {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+  .animate-slideDown {
+    animation: slideDown 0.3s ease-out forwards;
+  }
+  .animate-scaleIn {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+  .animate-shimmer {
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .glass {
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+  .dark .glass {
+    background-color: rgba(15, 20, 35, 0.85);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(207 90% 54%) 0%, hsl(220 80% 45%) 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(207 90% 54% / 0.08) 0%, hsl(260 60% 55% / 0.06) 50%, hsl(330 60% 50% / 0.04) 100%);
+  }
+
+  .gradient-card-hover:hover {
+    background: linear-gradient(135deg, hsl(207 90% 54% / 0.03) 0%, hsl(207 90% 54% / 0.01) 100%);
+  }
+
+  /* Stagger animation delays for lists */
+  .stagger-1 { animation-delay: 0.05s; opacity: 0; }
+  .stagger-2 { animation-delay: 0.1s; opacity: 0; }
+  .stagger-3 { animation-delay: 0.15s; opacity: 0; }
+  .stagger-4 { animation-delay: 0.2s; opacity: 0; }
+  .stagger-5 { animation-delay: 0.25s; opacity: 0; }
+  .stagger-6 { animation-delay: 0.3s; opacity: 0; }
+
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 3px;
+  }
+}

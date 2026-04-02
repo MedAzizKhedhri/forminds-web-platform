@@ -1,0 +1,99 @@
+version: "3.9"
+
+services:
+  # ──────────────────────────────────────────────
+  # Reverse proxy
+  # ──────────────────────────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: forminds-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    networks:
+      - forminds_network
+
+  # ──────────────────────────────────────────────
+  # Next.js frontend
+  # ──────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: forminds-frontend
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - forminds_network
+
+  # ──────────────────────────────────────────────
+  # Express backend API
+  # ──────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: forminds-backend
+    expose:
+      - "5000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/forminds
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - forminds_network
+
+  # ──────────────────────────────────────────────
+  # FastAPI AI service
+  # ──────────────────────────────────────────────
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: ../docker/Dockerfile.ai
+    container_name: forminds-ai
+    expose:
+      - "8000"
+    environment:
+      - ENVIRONMENT=production
+    restart: unless-stopped
+    networks:
+      - forminds_network
+
+  # ──────────────────────────────────────────────
+  # MongoDB
+  # ──────────────────────────────────────────────
+  mongodb:
+    image: mongo:7.0
+    container_name: forminds-mongodb
+    volumes:
+      - forminds_mongo_data:/data/db
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - forminds_network
+
+volumes:
+  forminds_mongo_data:
+    driver: local
+
+networks:
+  forminds_network:
+    driver: bridge

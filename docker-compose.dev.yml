@@ -1,0 +1,59 @@
+# Development overrides — run with:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+version: "3.9"
+
+services:
+  # Nginx is NOT used in dev; access services directly.
+  nginx:
+    profiles:
+      - production-only
+
+  # ── Frontend (hot reload) ─────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+      target: deps
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+
+  # ── Backend (hot reload) ──────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+      target: builder
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongodb:27017/forminds
+
+  # ── AI service (hot reload) ───────────────────
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: ../docker/Dockerfile.ai
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai-service:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - ENVIRONMENT=development
+
+  # ── MongoDB (exposed to host) ─────────────────
+  mongodb:
+    ports:
+      - "27017:27017"

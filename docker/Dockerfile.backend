@@ -1,0 +1,36 @@
+# ============================================
+# Stage 1 — build
+# ============================================
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ============================================
+# Stage 2 — production runner
+# ============================================
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 appgroup && \
+    adduser  --system --uid 1001 appuser
+
+# Copy compiled output, production dependencies, and key files
+COPY --from=builder --chown=appuser:appgroup /app/dist          ./dist
+COPY --from=builder --chown=appuser:appgroup /app/node_modules  ./node_modules
+COPY --from=builder --chown=appuser:appgroup /app/package.json  ./package.json
+COPY --from=builder --chown=appuser:appgroup /app/keys          ./keys
+
+USER appuser
+
+EXPOSE 5000
+
+CMD ["node", "dist/server.js"]
