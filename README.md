@@ -220,6 +220,29 @@ npm run seed:admin --workspace=backend
 
 Default admin credentials: `admin@forminds.com` / `Admin@123456`
 
+---
+
+## Latest Updates (Current Version)
+
+### ✅ Fixed Issues
+- **Backend Dependencies**: Installed missing nodemailer package for email functionality
+- **Database Schema**: Removed duplicate MongoDB unique index on `qrCode` in Registration model to eliminate warnings
+- **Frontend Translations**: Added comprehensive translation keys for all pages
+  - Network page: connections, pending requests, sent requests, suggestions
+  - Dashboard, events, opportunities, profile, feed, and admin pages
+- **Next.js Configuration**: Removed invalid `reactCompiler` option from next.config.ts
+- **Email Service**: Configured SMTP with Ethereal fallback for local development testing
+
+### 📧 Email Configuration
+- **Production**: Use Brevo SMTP (free tier: 300 emails/day)
+- **Development**: Ethereal test account (auto-created when SMTP_HOST is empty)
+- **Password Reset**: Reset link logged to backend console and available in Ethereal preview
+
+### 🔐 Admin Setup
+- Access admin dashboard at: `http://localhost:3000/admin`
+- Features: Audit logs, user management, event & opportunity moderation
+- Seed command: `cd backend && npm run seed:admin`
+
 ## API Endpoints
 
 ### Authentication (`/api/auth`)
