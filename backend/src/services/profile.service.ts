@@ -17,6 +17,81 @@ import { UserRole } from '../utils/constants';
 import config from '../config';
 
 /**
+ * Syncs and extracts skills from education, experience, and project technologies.
+ * Auto-populates the main skills array with all extracted skills.
+ * Deduplicates and lowercases all skills.
+ */
+export const syncSkillsFromAllSections = async (userId: string): Promise<IStudentProfile> => {
+  const profile = await StudentProfile.findOne({ userId });
+  if (!profile) {
+    throw new AppError('Student profile not found.', 404);
+  }
+
+  // Extract skills from all sections
+  const extractedSkills = new Set<string>();
+
+  // Extract from education skills
+  if (profile.education && Array.isArray(profile.education)) {
+    profile.education.forEach((edu: IEducation) => {
+      if (edu.skills && Array.isArray(edu.skills)) {
+        edu.skills.forEach((skill: string) => {
+          const normalized = skill.toLowerCase().trim();
+          if (normalized) extractedSkills.add(normalized);
+        });
+      }
+    });
+  }
+
+  // Extract from experience skills
+  if (profile.experiences && Array.isArray(profile.experiences)) {
+    profile.experiences.forEach((exp: IExperience) => {
+      if (exp.skills && Array.isArray(exp.skills)) {
+        exp.skills.forEach((skill: string) => {
+          const normalized = skill.toLowerCase().trim();
+          if (normalized) extractedSkills.add(normalized);
+        });
+      }
+    });
+  }
+
+  // Extract from project technologies
+  if (profile.projects && Array.isArray(profile.projects)) {
+    profile.projects.forEach((proj: IProject) => {
+      if (proj.technologies && Array.isArray(proj.technologies)) {
+        proj.technologies.forEach((tech: string) => {
+          const normalized = tech.toLowerCase().trim();
+          if (normalized) extractedSkills.add(normalized);
+        });
+      }
+    });
+  }
+
+  // Merge with existing manual skills (keeping any manually added skills)
+  const currentSkills = profile.skills || [];
+  const mergedSkills = new Set<string>();
+
+  // Add current skills (in case user manually added some)
+  currentSkills.forEach((skill: string) => {
+    const normalized = skill.toLowerCase().trim();
+    if (normalized) mergedSkills.add(normalized);
+  });
+
+  // Add extracted skills
+  extractedSkills.forEach((skill: string) => mergedSkills.add(skill));
+
+  // Convert Set to sorted array and limit to 50 skills
+  const syncedSkills = Array.from(mergedSkills)
+    .sort()
+    .slice(0, 50);
+
+  // Update profile with synced skills
+  profile.skills = syncedSkills;
+  await profile.save();
+
+  return profile;
+};
+
+/**
  * Gets a user by ID (without password).
  */
 export const getUserById = async (userId: string): Promise<IUser | null> => {
@@ -122,14 +197,17 @@ export const addProject = async (
     throw new AppError('Student profile not found.', 404);
   }
 
+  // Sync skills from all sections (project technologies -> skills)
+  const updatedProfile = await syncSkillsFromAllSections(userId);
+
   // Recalculate completion
   const user = await User.findById(userId);
   if (user) {
-    profile.profileCompletionPercent = calculateProfileCompletion(profile, user);
-    await profile.save();
+    updatedProfile.profileCompletionPercent = calculateProfileCompletion(updatedProfile, user);
+    await updatedProfile.save();
   }
 
-  return profile;
+  return updatedProfile;
 };
 
 /**
@@ -155,7 +233,8 @@ export const updateProject = async (
     throw new AppError('Project not found.', 404);
   }
 
-  return profile;
+  // Sync skills from all sections (project technologies -> skills)
+  return syncSkillsFromAllSections(userId);
 };
 
 /**
@@ -175,14 +254,17 @@ export const removeProject = async (
     throw new AppError('Student profile not found.', 404);
   }
 
+  // Sync skills from all sections
+  const updatedProfile = await syncSkillsFromAllSections(userId);
+
   // Recalculate completion
   const user = await User.findById(userId);
   if (user) {
-    profile.profileCompletionPercent = calculateProfileCompletion(profile, user);
-    await profile.save();
+    updatedProfile.profileCompletionPercent = calculateProfileCompletion(updatedProfile, user);
+    await updatedProfile.save();
   }
 
-  return profile;
+  return updatedProfile;
 };
 
 // ─────────────────────────────────────────────────
@@ -206,14 +288,17 @@ export const addEducation = async (
     throw new AppError('Student profile not found.', 404);
   }
 
+  // Sync skills from all sections
+  const updatedProfile = await syncSkillsFromAllSections(userId);
+
   // Recalculate completion
   const user = await User.findById(userId);
   if (user) {
-    profile.profileCompletionPercent = calculateProfileCompletion(profile, user);
-    await profile.save();
+    updatedProfile.profileCompletionPercent = calculateProfileCompletion(updatedProfile, user);
+    await updatedProfile.save();
   }
 
-  return profile;
+  return updatedProfile;
 };
 
 /**
@@ -239,7 +324,8 @@ export const updateEducation = async (
     throw new AppError('Education entry not found.', 404);
   }
 
-  return profile;
+  // Sync skills from all sections
+  return syncSkillsFromAllSections(userId);
 };
 
 /**
@@ -259,14 +345,17 @@ export const removeEducation = async (
     throw new AppError('Student profile not found.', 404);
   }
 
+  // Sync skills from all sections
+  const updatedProfile = await syncSkillsFromAllSections(userId);
+
   // Recalculate completion
   const user = await User.findById(userId);
   if (user) {
-    profile.profileCompletionPercent = calculateProfileCompletion(profile, user);
-    await profile.save();
+    updatedProfile.profileCompletionPercent = calculateProfileCompletion(updatedProfile, user);
+    await updatedProfile.save();
   }
 
-  return profile;
+  return updatedProfile;
 };
 
 // ─────────────────────────────────────────────────
@@ -290,14 +379,17 @@ export const addExperience = async (
     throw new AppError('Student profile not found.', 404);
   }
 
+  // Sync skills from all sections
+  const updatedProfile = await syncSkillsFromAllSections(userId);
+
   // Recalculate completion
   const user = await User.findById(userId);
   if (user) {
-    profile.profileCompletionPercent = calculateProfileCompletion(profile, user);
-    await profile.save();
+    updatedProfile.profileCompletionPercent = calculateProfileCompletion(updatedProfile, user);
+    await updatedProfile.save();
   }
 
-  return profile;
+  return updatedProfile;
 };
 
 /**
@@ -323,7 +415,8 @@ export const updateExperience = async (
     throw new AppError('Experience entry not found.', 404);
   }
 
-  return profile;
+  // Sync skills from all sections
+  return syncSkillsFromAllSections(userId);
 };
 
 /**
@@ -343,14 +436,17 @@ export const removeExperience = async (
     throw new AppError('Student profile not found.', 404);
   }
 
+  // Sync skills from all sections
+  const updatedProfile = await syncSkillsFromAllSections(userId);
+
   // Recalculate completion
   const user = await User.findById(userId);
   if (user) {
-    profile.profileCompletionPercent = calculateProfileCompletion(profile, user);
-    await profile.save();
+    updatedProfile.profileCompletionPercent = calculateProfileCompletion(updatedProfile, user);
+    await updatedProfile.save();
   }
 
-  return profile;
+  return updatedProfile;
 };
 
 // ─────────────────────────────────────────────────

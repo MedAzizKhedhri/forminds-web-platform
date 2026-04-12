@@ -135,6 +135,7 @@ export const educationSchema = z.object({
   startDate: z.string().min(1, 'Start date is required'),
   endDate: z.string().optional(),
   current: z.boolean(),
+  skills: z.array(z.string()).optional(),
 });
 
 export type EducationFormData = z.infer<typeof educationSchema>;
@@ -146,6 +147,7 @@ export const experienceSchema = z.object({
   startDate: z.string().min(1, 'Start date is required'),
   endDate: z.string().optional(),
   current: z.boolean(),
+  skills: z.array(z.string()).optional(),
 });
 
 export type ExperienceFormData = z.infer<typeof experienceSchema>;

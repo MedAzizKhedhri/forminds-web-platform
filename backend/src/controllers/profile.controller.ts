@@ -52,6 +52,7 @@ export const educationSchema = z.object({
   startDate: z.coerce.date(),
   endDate: z.coerce.date().optional(),
   current: z.boolean().default(false),
+  skills: z.array(z.string()).optional(),
 });
 
 export const experienceSchema = z.object({
@@ -61,6 +62,7 @@ export const experienceSchema = z.object({
   startDate: z.coerce.date(),
   endDate: z.coerce.date().optional(),
   current: z.boolean().default(false),
+  skills: z.array(z.string()).optional(),
 });
 
 export const deleteAccountSchema = z.object({

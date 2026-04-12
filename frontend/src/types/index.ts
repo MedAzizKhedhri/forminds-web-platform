@@ -32,6 +32,7 @@ export interface Education {
   startDate: string;
   endDate?: string;
   current: boolean;
+  skills?: string[];
 }
 
 export interface Experience {
@@ -42,6 +43,7 @@ export interface Experience {
   startDate: string;
   endDate?: string;
   current: boolean;
+  skills?: string[];
 }
 
 export interface StudentProfile {

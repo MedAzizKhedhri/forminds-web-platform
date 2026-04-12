@@ -17,6 +17,7 @@ export interface IEducation {
   startDate: Date;
   endDate?: Date;
   current: boolean;
+  skills?: string[];
 }
 
 export interface IExperience {
@@ -27,6 +28,7 @@ export interface IExperience {
   startDate: Date;
   endDate?: Date;
   current: boolean;
+  skills?: string[];
 }
 
 export interface IStudentProfile extends Document {
@@ -110,6 +112,11 @@ const educationSchema = new Schema<IEducation>(
       type: Boolean,
       default: false,
     },
+    skills: {
+      type: [String],
+      default: [],
+      set: (skills: string[]) => skills.map((s) => s.toLowerCase()),
+    },
   },
   { _id: true }
 );
@@ -143,6 +150,11 @@ const experienceSchema = new Schema<IExperience>(
     current: {
       type: Boolean,
       default: false,
+    },
+    skills: {
+      type: [String],
+      default: [],
+      set: (skills: string[]) => skills.map((s) => s.toLowerCase()),
     },
   },
   { _id: true }

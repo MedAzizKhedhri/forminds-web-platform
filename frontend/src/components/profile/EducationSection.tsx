@@ -1,36 +1,35 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import api from '@/lib/api';
-import { toast } from '@/hooks/use-toast';
-import { educationSchema, type EducationFormData } from '@/lib/validations';
-import type { Education, ApiResponse } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import api from "@/lib/api";
+import { toast } from "@/hooks/use-toast";
+import { educationSchema, type EducationFormData } from "@/lib/validations";
+import type { Education, ApiResponse } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Plus, Pencil, Trash2, GraduationCap } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Plus, Pencil, Trash2, GraduationCap } from "lucide-react";
+import { SkillTags } from "./SkillTags";
 
 interface EducationSectionProps {
   education: Education[];
   onUpdate: () => void;
 }
 
-export function EducationSection({ education, onUpdate }: EducationSectionProps) {
+export function EducationSection({
+  education,
+  onUpdate,
+}: EducationSectionProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Education | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -45,26 +44,28 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
   } = useForm<EducationFormData>({
     resolver: zodResolver(educationSchema),
     defaultValues: {
-      institution: '',
-      degree: '',
-      field: '',
-      startDate: '',
-      endDate: '',
+      institution: "",
+      degree: "",
+      field: "",
+      startDate: "",
+      endDate: "",
       current: false,
+      skills: [],
     },
   });
 
-  const currentValue = watch('current');
+  const currentValue = watch("current");
 
   const openAdd = () => {
     setEditing(null);
     reset({
-      institution: '',
-      degree: '',
-      field: '',
-      startDate: '',
-      endDate: '',
+      institution: "",
+      degree: "",
+      field: "",
+      startDate: "",
+      endDate: "",
       current: false,
+      skills: [],
     });
     setDialogOpen(true);
   };
@@ -75,9 +76,10 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
       institution: edu.institution,
       degree: edu.degree,
       field: edu.field,
-      startDate: edu.startDate ? edu.startDate.substring(0, 10) : '',
-      endDate: edu.endDate ? edu.endDate.substring(0, 10) : '',
+      startDate: edu.startDate ? edu.startDate.substring(0, 10) : "",
+      endDate: edu.endDate ? edu.endDate.substring(0, 10) : "",
       current: edu.current,
+      skills: edu.skills || [],
     });
     setDialogOpen(true);
   };
@@ -92,12 +94,12 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
       if (editing) {
         await api.put<ApiResponse>(
           `/profiles/me/education/${editing._id}`,
-          payload
+          payload,
         );
-        toast({ title: 'Education updated successfully' });
+        toast({ title: "Education updated successfully" });
       } else {
-        await api.post<ApiResponse>('/profiles/me/education', payload);
-        toast({ title: 'Education added successfully' });
+        await api.post<ApiResponse>("/profiles/me/education", payload);
+        toast({ title: "Education added successfully" });
       }
 
       setDialogOpen(false);
@@ -105,8 +107,8 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
       onUpdate();
     } catch {
       toast({
-        title: 'Failed to save education',
-        variant: 'destructive',
+        title: "Failed to save education",
+        variant: "destructive",
       });
     }
   };
@@ -115,12 +117,12 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
     setDeleting(id);
     try {
       await api.delete<ApiResponse>(`/profiles/me/education/${id}`);
-      toast({ title: 'Education deleted' });
+      toast({ title: "Education deleted" });
       onUpdate();
     } catch {
       toast({
-        title: 'Failed to delete education',
-        variant: 'destructive',
+        title: "Failed to delete education",
+        variant: "destructive",
       });
     } finally {
       setDeleting(null);
@@ -128,10 +130,10 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
   };
 
   const formatDate = (dateStr?: string) => {
-    if (!dateStr) return '';
-    return new Date(dateStr).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
     });
   };
 
@@ -149,7 +151,7 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
               <DialogTitle>
-                {editing ? 'Edit Education' : 'Add Education'}
+                {editing ? "Edit Education" : "Add Education"}
               </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -157,11 +159,13 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                 <Label htmlFor="institution">Institution</Label>
                 <Input
                   id="institution"
-                  {...register('institution')}
+                  {...register("institution")}
                   placeholder="University name"
                 />
                 {errors.institution && (
-                  <p className="text-xs text-red-500">{errors.institution.message}</p>
+                  <p className="text-xs text-red-500">
+                    {errors.institution.message}
+                  </p>
                 )}
               </div>
 
@@ -169,11 +173,13 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                 <Label htmlFor="degree">Degree</Label>
                 <Input
                   id="degree"
-                  {...register('degree')}
+                  {...register("degree")}
                   placeholder="e.g. Bachelor's, Master's"
                 />
                 {errors.degree && (
-                  <p className="text-xs text-red-500">{errors.degree.message}</p>
+                  <p className="text-xs text-red-500">
+                    {errors.degree.message}
+                  </p>
                 )}
               </div>
 
@@ -181,7 +187,7 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                 <Label htmlFor="field">Field of Study</Label>
                 <Input
                   id="field"
-                  {...register('field')}
+                  {...register("field")}
                   placeholder="e.g. Computer Science"
                 />
                 {errors.field && (
@@ -195,10 +201,12 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                   <Input
                     id="startDate"
                     type="date"
-                    {...register('startDate')}
+                    {...register("startDate")}
                   />
                   {errors.startDate && (
-                    <p className="text-xs text-red-500">{errors.startDate.message}</p>
+                    <p className="text-xs text-red-500">
+                      {errors.startDate.message}
+                    </p>
                   )}
                 </div>
 
@@ -207,10 +215,20 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                   <Input
                     id="endDate"
                     type="date"
-                    {...register('endDate')}
+                    {...register("endDate")}
                     disabled={currentValue}
                   />
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Skills Gained</Label>
+                <SkillTags
+                  skills={watch("skills") || []}
+                  onChange={(skills) => setValue("skills", skills)}
+                  maxSkills={20}
+                  placeholder="Add skills gained (e.g., Python, Data Analysis)"
+                />
               </div>
 
               <div className="flex items-center gap-2">
@@ -218,7 +236,7 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                   type="checkbox"
                   id="current"
                   checked={currentValue}
-                  onChange={(e) => setValue('current', e.target.checked)}
+                  onChange={(e) => setValue("current", e.target.checked)}
                   className="h-4 w-4 rounded border-gray-300"
                 />
                 <Label htmlFor="current" className="text-sm font-normal">
@@ -235,7 +253,7 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                   Cancel
                 </Button>
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Saving...' : 'Save'}
+                  {isSubmitting ? "Saving..." : "Save"}
                 </Button>
               </div>
             </form>
@@ -259,8 +277,12 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
                     <GraduationCap className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <CardTitle className="text-base">{edu.degree} in {edu.field}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{edu.institution}</p>
+                    <CardTitle className="text-base">
+                      {edu.degree} in {edu.field}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {edu.institution}
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-1">
@@ -284,9 +306,21 @@ export function EducationSection({ education, onUpdate }: EducationSectionProps)
             </CardHeader>
             <CardContent className="pb-4">
               <p className="text-xs text-muted-foreground">
-                {formatDate(edu.startDate)} -{' '}
-                {edu.current ? 'Present' : formatDate(edu.endDate)}
+                {formatDate(edu.startDate)} -{" "}
+                {edu.current ? "Present" : formatDate(edu.endDate)}
               </p>
+              {edu.skills && edu.skills.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {edu.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         ))}
