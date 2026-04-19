@@ -182,7 +182,7 @@ export default function AdminUsersPage() {
               <SelectContent>
                 <SelectItem value="all">{t.admin?.allRoles || 'All Roles'}</SelectItem>
                 <SelectItem value="student">{'Student'}</SelectItem>
-                <SelectItem value="recruiter">{'Recruiter'}</SelectItem>
+                <SelectItem value="recruiter">{'Organisation'}</SelectItem>
                 <SelectItem value="admin">{'Admin'}</SelectItem>
               </SelectContent>
             </Select>
@@ -269,7 +269,7 @@ export default function AdminUsersPage() {
                                 : 'outline'
                           }
                         >
-                          {u.role}
+                          {u.role === 'recruiter' ? 'organisation' : u.role}
                         </Badge>
                       </td>
                       <td className="px-4 py-3">

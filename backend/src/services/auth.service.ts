@@ -234,6 +234,32 @@ export const resetPassword = async (
 };
 
 /**
+ * Changes a user's password using their current password for verification.
+ */
+export const changePassword = async (
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+): Promise<void> => {
+  const user = await User.findById(userId).select('+password');
+
+  if (!user) {
+    throw new AppError('User not found.', 404);
+  }
+
+  const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+  if (!isPasswordValid) {
+    throw new AppError('Invalid current password.', 401);
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 12);
+  user.password = hashedPassword;
+  await user.save();
+
+  await tokenService.revokeAllRefreshTokens(user._id.toString());
+};
+
+/**
  * Initiates the 2FA enable flow for an authenticated user.
  */
 export const enable2FA = async (userId: string): Promise<void> => {

@@ -68,10 +68,7 @@ export function Navbar({ onToggleSidebar, sidebarOpen }: NavbarProps) {
 
         {/* Right side: actions + user menu */}
         <div className="flex items-center gap-1 sm:gap-2 ml-auto shrink-0">
-          {/* Notifications placeholder */}
-          <Button variant="ghost" size="icon" className="relative h-9 w-9">
-            <Bell className="h-4 w-4" />
-          </Button>
+
 
           <LanguageSwitcher />
 

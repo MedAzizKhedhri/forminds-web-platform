@@ -200,7 +200,7 @@ export function RegisterForm() {
               {...register('role')}
             >
               <option value="student">Student</option>
-              <option value="recruiter">Recruiter</option>
+              <option value="recruiter">Organisation</option>
             </select>
             {errors.role && (
               <p className="text-sm text-destructive">

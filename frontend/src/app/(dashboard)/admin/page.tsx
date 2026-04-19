@@ -74,7 +74,7 @@ export default function AdminDashboardPage() {
       bg: 'bg-green-50',
     },
     {
-      label: t.admin?.recruiters || 'Recruiters',
+      label: t.admin?.recruiters || 'Organisations',
       value: stats?.totalRecruiters,
       icon: Building2,
       color: 'text-purple-600',
@@ -142,7 +142,7 @@ export default function AdminDashboardPage() {
       bg: 'bg-amber-50',
     },
     {
-      label: t.admin?.verifyRecruiters || 'Verify Recruiters',
+      label: t.admin?.verifyRecruiters || 'Verify Organisations',
       href: '/admin/recruiters',
       icon: ShieldCheck,
       color: 'text-purple-600',

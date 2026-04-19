@@ -203,9 +203,9 @@ export default function SettingsPage() {
               <Key className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <CardTitle>Change Password</CardTitle>
+              <CardTitle>{t.settingsPage?.changePassword || 'Change Password'}</CardTitle>
               <CardDescription>
-                Update your password to keep your account secure
+                {t.settingsPage?.updatePasswordDesc || 'Update your password to keep your account secure'}
               </CardDescription>
             </div>
           </div>
@@ -213,12 +213,12 @@ export default function SettingsPage() {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmitPassword)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="currentPassword">Current Password</Label>
+              <Label htmlFor="currentPassword">{t.settingsPage?.currentPassword || 'Current Password'}</Label>
               <Input
                 id="currentPassword"
                 type="password"
                 {...register('currentPassword')}
-                placeholder="Enter your current password"
+                placeholder={t.settingsPage?.currentPasswordPlaceholder || 'Enter your current password'}
               />
               {errors.currentPassword && (
                 <p className="text-xs text-red-500">{errors.currentPassword.message}</p>
@@ -226,12 +226,12 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="newPassword">New Password</Label>
+              <Label htmlFor="newPassword">{t.settingsPage?.newPassword || 'New Password'}</Label>
               <Input
                 id="newPassword"
                 type="password"
                 {...register('newPassword')}
-                placeholder="Enter a new password"
+                placeholder={t.settingsPage?.newPasswordPlaceholder || 'Enter a new password'}
               />
               {errors.newPassword && (
                 <p className="text-xs text-red-500">{errors.newPassword.message}</p>
@@ -239,12 +239,12 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmNewPassword">Confirm New Password</Label>
+              <Label htmlFor="confirmNewPassword">{t.settingsPage?.confirmNewPassword || 'Confirm New Password'}</Label>
               <Input
                 id="confirmNewPassword"
                 type="password"
                 {...register('confirmNewPassword')}
-                placeholder="Confirm your new password"
+                placeholder={t.settingsPage?.confirmNewPasswordPlaceholder || 'Confirm your new password'}
               />
               {errors.confirmNewPassword && (
                 <p className="text-xs text-red-500">{errors.confirmNewPassword.message}</p>
@@ -253,7 +253,7 @@ export default function SettingsPage() {
 
             <div className="flex justify-end pt-2">
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Changing...' : 'Change Password'}
+                {isSubmitting ? (t.settingsPage?.changing || 'Changing...') : (t.settingsPage?.changePasswordBtn || 'Change Password')}
               </Button>
             </div>
           </form>
@@ -270,9 +270,9 @@ export default function SettingsPage() {
               <Shield className="h-5 w-5 text-green-600" />
             </div>
             <div>
-              <CardTitle>Two-Factor Authentication</CardTitle>
+              <CardTitle>{t.settingsPage?.twoFactor || 'Two-Factor Authentication'}</CardTitle>
               <CardDescription>
-                Add an extra layer of security to your account
+                {t.settingsPage?.twoFactorDesc || 'Add an extra layer of security to your account'}
               </CardDescription>
             </div>
           </div>
@@ -281,19 +281,19 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">
-                Status:{' '}
+                {t.settingsPage?.status || 'Status:'}{' '}
                 <span
                   className={
                     user?.is2FAEnabled ? 'text-green-600' : 'text-muted-foreground'
                   }
                 >
-                  {user?.is2FAEnabled ? 'Enabled' : 'Disabled'}
+                  {user?.is2FAEnabled ? (t.settingsPage?.enabled || 'Enabled') : (t.settingsPage?.disabled || 'Disabled')}
                 </span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 {user?.is2FAEnabled
-                  ? 'Two-factor authentication is active on your account.'
-                  : 'Enable 2FA to add an extra layer of security.'}
+                  ? (t.settingsPage?.twoFactorActive || 'Two-factor authentication is active on your account.')
+                  : (t.settingsPage?.twoFactorInactive || 'Enable 2FA to add an extra layer of security.')}
               </p>
             </div>
             {user?.is2FAEnabled ? (
@@ -302,11 +302,11 @@ export default function SettingsPage() {
                 onClick={handleDisable2FA}
                 disabled={twoFALoading}
               >
-                {twoFALoading ? 'Disabling...' : 'Disable 2FA'}
+                {twoFALoading ? (t.settingsPage?.disabling || 'Disabling...') : (t.settingsPage?.disable2FA || 'Disable 2FA')}
               </Button>
             ) : (
               <Button onClick={handleEnable2FA} disabled={twoFALoading}>
-                {twoFALoading ? 'Enabling...' : 'Enable 2FA'}
+                {twoFALoading ? (t.settingsPage?.enabling || 'Enabling...') : (t.settingsPage?.enable2FA || 'Enable 2FA')}
               </Button>
             )}
           </div>
@@ -317,7 +317,7 @@ export default function SettingsPage() {
       <Dialog open={twoFADialogOpen} onOpenChange={setTwoFADialogOpen}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
-            <DialogTitle>Confirm Two-Factor Authentication</DialogTitle>
+            <DialogTitle>{t.settingsPage?.confirm2FA || 'Confirm Two-Factor Authentication'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             {qrCode && (
@@ -326,12 +326,12 @@ export default function SettingsPage() {
               </div>
             )}
             <p className="text-sm text-muted-foreground text-center">
-              Enter the 6-digit verification code to confirm setup.
+              {t.settingsPage?.enter6digit || 'Enter the 6-digit verification code to confirm setup.'}
             </p>
             <Input
               value={twoFACode}
               onChange={(e) => setTwoFACode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-              placeholder="Enter 6-digit code"
+              placeholder={t.settingsPage?.enterCodePlaceholder || 'Enter 6-digit code'}
               maxLength={6}
               className="text-center text-lg tracking-widest"
             />
@@ -344,13 +344,13 @@ export default function SettingsPage() {
                   setQrCode(null);
                 }}
               >
-                Cancel
+                {t.settingsPage?.cancel || 'Cancel'}
               </Button>
               <Button
                 onClick={handleConfirm2FA}
                 disabled={twoFACode.length !== 6 || confirmingTwoFA}
               >
-                {confirmingTwoFA ? 'Confirming...' : 'Confirm'}
+                {confirmingTwoFA ? (t.settingsPage?.confirming || 'Confirming...') : (t.settingsPage?.confirm || 'Confirm')}
               </Button>
             </div>
           </div>
@@ -367,9 +367,9 @@ export default function SettingsPage() {
               <Trash2 className="h-5 w-5 text-red-600" />
             </div>
             <div>
-              <CardTitle className="text-red-600">Delete Account</CardTitle>
+              <CardTitle className="text-red-600">{t.settingsPage?.deleteAccount || 'Delete Account'}</CardTitle>
               <CardDescription>
-                Permanently delete your account and all associated data
+                {t.settingsPage?.deleteAccountDesc || 'Permanently delete your account and all associated data'}
               </CardDescription>
             </div>
           </div>
@@ -377,9 +377,7 @@ export default function SettingsPage() {
         <CardContent>
           <div className="flex items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              Once you delete your account, there is no going back. All your data
-              including your profile, posts, connections, and applications will be
-              permanently removed.
+              {t.settingsPage?.deleteWarning || 'Once you delete your account, there is no going back. All your data including your profile, posts, connections, and applications will be permanently removed.'}
             </p>
             <Button
               variant="destructive"
@@ -390,7 +388,7 @@ export default function SettingsPage() {
                 setDeleteError('');
               }}
             >
-              Delete Account
+              {t.settingsPage?.deleteAccount || 'Delete Account'}
             </Button>
           </div>
         </CardContent>
@@ -400,17 +398,15 @@ export default function SettingsPage() {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>{t.settingsPage?.areYouSure || 'Are you absolutely sure?'}</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove all your data from our servers, including your
-              profile, posts, connections, opportunities, and applications.
+              {t.settingsPage?.cannotUndo || 'This action cannot be undone. This will permanently delete your account and remove all your data from our servers, including your profile, posts, connections, opportunities, and applications.'}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-4 py-2">
             <div className="space-y-2">
               <Label htmlFor="deletePassword">
-                Enter your password to confirm
+                {t.settingsPage?.enterPasswordConfirm || 'Enter your password to confirm'}
               </Label>
               <Input
                 id="deletePassword"
@@ -420,7 +416,7 @@ export default function SettingsPage() {
                   setDeletePassword(e.target.value);
                   setDeleteError('');
                 }}
-                placeholder="Enter your password"
+                placeholder={t.settingsPage?.enterPasswordPlaceholder || 'Enter your password'}
               />
               {deleteError && (
                 <p className="text-xs text-red-500">{deleteError}</p>
@@ -434,14 +430,14 @@ export default function SettingsPage() {
                 setDeleteError('');
               }}
             >
-              Cancel
+              {t.settingsPage?.cancel || 'Cancel'}
             </AlertDialogCancel>
             <Button
               variant="destructive"
               onClick={handleDeleteAccount}
               disabled={deleteLoading || !deletePassword}
             >
-              {deleteLoading ? 'Deleting...' : 'Delete my account'}
+              {deleteLoading ? (t.settingsPage?.deleting || 'Deleting...') : (t.settingsPage?.deleteMyAccount || 'Delete my account')}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

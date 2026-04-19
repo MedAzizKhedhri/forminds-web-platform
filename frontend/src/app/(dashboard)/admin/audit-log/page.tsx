@@ -35,7 +35,7 @@ const ACTION_TYPES = [
   { value: 'opportunity_rejected', label: 'Opportunity Rejected' },
   { value: 'event_approved', label: 'Event Approved' },
   { value: 'event_rejected', label: 'Event Rejected' },
-  { value: 'recruiter_verified', label: 'Recruiter Verified' },
+  { value: 'recruiter_verified', label: 'Organisation Verified' },
   { value: 'user_suspended', label: 'User Suspended' },
   { value: 'user_reactivated', label: 'User Reactivated' },
 ];

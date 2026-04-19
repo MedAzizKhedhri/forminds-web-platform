@@ -65,6 +65,11 @@ export const resetPasswordSchema = z.object({
   newPassword: passwordSchema,
 });
 
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: passwordSchema,
+});
+
 export const twoFactorSchema = z.object({
   email: z.string().email('Invalid email address'),
   code: z
@@ -318,6 +323,27 @@ export const resetPassword = asyncHandler(
   }
 );
 
+/**
+ * POST /api/auth/change-password
+ */
+export const changePassword = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    if (!req.user) {
+      throw new AppError('Authentication required.', 401);
+    }
+
+    const { currentPassword, newPassword } = changePasswordSchema.parse(req.body);
+
+    await authService.changePassword(req.user.userId, currentPassword, newPassword);
+
+    const response: ApiResponse = {
+      success: true,
+      message: 'Password changed successfully.',
+    };
+
+    res.status(200).json(response);
+  }
+);
 /**
  * POST /api/auth/enable-2fa
  */

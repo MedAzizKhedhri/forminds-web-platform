@@ -23,6 +23,7 @@ router.post('/refresh', controller.refresh);
 // ─────────────────────────────────────────────────
 
 router.post('/logout', authenticate, controller.logout);
+router.post('/change-password', authenticate, controller.changePassword);
 router.post('/enable-2fa', authenticate, controller.enable2FA);
 router.post('/confirm-2fa', authenticate, controller.confirm2FA);
 router.post('/disable-2fa', authenticate, controller.disable2FA);

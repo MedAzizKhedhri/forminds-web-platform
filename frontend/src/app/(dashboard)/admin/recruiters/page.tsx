@@ -67,7 +67,7 @@ export default function AdminRecruitersPage() {
     try {
       const res = await verifyRecruiter(userId);
       if (res.success) {
-        toast({ title: 'Recruiter verified successfully' });
+        toast({ title: 'Organisation verified successfully' });
       }
     } catch {
       toast({
@@ -113,7 +113,7 @@ export default function AdminRecruitersPage() {
       <div className="flex items-center gap-3">
         <ShieldCheck className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.admin?.recruitersVerification || 'Recruiter Verification'}
+          {t.admin?.recruitersVerification || 'Organisation Verification'}
         </h1>
       </div>
 
@@ -142,10 +142,10 @@ export default function AdminRecruitersPage() {
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
           <Inbox className="h-16 w-16 mb-4 opacity-50" />
           <p className="text-lg font-medium">
-            {t.admin?.noUnverifiedRecruiters || 'No unverified recruiters'}
+            {t.admin?.noUnverifiedRecruiters || 'No unverified organisations'}
           </p>
           <p className="text-sm mt-1">
-            {'All recruiters have been verified'}
+            {'All organisations have been verified'}
           </p>
         </div>
       )}

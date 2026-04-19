@@ -185,7 +185,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         },
         {
           href: '/admin/recruiters',
-          label: t.nav?.adminRecruiters || 'Verify Recruiters',
+          label: t.nav?.adminRecruiters || 'Verify Organisations',
           icon: UserCheck,
           roles: ['admin'],
         },
