@@ -22,7 +22,7 @@ const translations: Record<Locale, Record<string, any>> = {
   en: {
     language: 'Language',
     settings: 'Settings',
-    profile: 'Profile',
+    profileLabel: 'Profile',
     logout: 'Logout',
     nav: {
       dashboard: 'Dashboard',
@@ -196,7 +196,7 @@ const translations: Record<Locale, Record<string, any>> = {
   fr: {
     language: 'Langue',
     settings: 'Paramètres',
-    profile: 'Profil',
+    profileLabel: 'Profil',
     logout: 'Déconnexion',
     nav: {
       dashboard: 'Tableau de bord',
