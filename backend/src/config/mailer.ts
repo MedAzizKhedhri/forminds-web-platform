@@ -1,32 +1,47 @@
-import nodemailer, { Transporter } from 'nodemailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import sgMail from '@sendgrid/mail';
 import config from './index';
 
-let transporter: Transporter | null = null;
+interface Transporter {
+  sendMail(mailOptions: any): Promise<any>;
+}
+
+let transporter: Transporter;
 
 /**
- * Lazily initializes and returns the nodemailer transporter.
- * Uses SMTP config if SMTP_HOST is provided, otherwise falls back to Ethereal test account.
+ * Lazily initializes and returns the email transporter.
+ * Uses SendGrid API if SENDGRID_API_KEY is provided, otherwise falls back to Ethereal test account.
  */
 export const getTransporter = async (): Promise<Transporter> => {
   if (transporter) {
     return transporter;
   }
 
-  if (config.smtp.host) {
-    const options: SMTPTransport.Options = {
-      host: config.smtp.host,
-      port: config.smtp.port,
-      secure: config.smtp.port === 465,
-      auth: {
-        user: config.smtp.user,
-        pass: config.smtp.pass,
+  if (process.env.SENDGRID_API_KEY) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log('[Mailer] Using SendGrid API');
+
+    transporter = {
+      sendMail: async (mailOptions: any) => {
+        const msg = {
+          to: mailOptions.to,
+          from: mailOptions.from,
+          subject: mailOptions.subject,
+          html: mailOptions.html,
+          text: mailOptions.text,
+        };
+
+        try {
+          await sgMail.send(msg);
+          return { messageId: 'sendgrid-sent' };
+        } catch (error) {
+          console.error('[Mailer] SendGrid error:', error);
+          throw error;
+        }
       },
     };
-
-    transporter = nodemailer.createTransport(options);
-    console.log(`[Mailer] Configured with SMTP host: ${config.smtp.host}`);
   } else {
+    // Fallback to nodemailer if no SendGrid key
+    const nodemailer = require('nodemailer');
     const testAccount = await nodemailer.createTestAccount();
 
     transporter = nodemailer.createTransport({
@@ -49,8 +64,10 @@ export const getTransporter = async (): Promise<Transporter> => {
 /**
  * Returns the Ethereal preview URL for a sent message, or false if unavailable.
  */
-export const getTestMessageUrl = (
-  info: nodemailer.SentMessageInfo
-): string | false => {
+export const getTestMessageUrl = (info: any): string | false => {
+  if (process.env.SENDGRID_API_KEY) {
+    return false; // SendGrid doesn't have preview URLs
+  }
+  const nodemailer = require('nodemailer');
   return nodemailer.getTestMessageUrl(info);
 };
