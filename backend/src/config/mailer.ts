@@ -1,4 +1,5 @@
-import sgMail from '@sendgrid/mail';
+import FormData from 'form-data';
+import Mailgun from 'mailgun.js';
 import config from './index';
 
 interface Transporter {
@@ -9,38 +10,37 @@ let transporter: Transporter;
 
 /**
  * Lazily initializes and returns the email transporter.
- * Uses SendGrid API if SENDGRID_API_KEY is provided, otherwise falls back to Ethereal test account.
+ * Uses Mailgun API if MAILGUN_API_KEY is provided, otherwise falls back to Ethereal test account.
  */
 export const getTransporter = async (): Promise<Transporter> => {
   if (transporter) {
     return transporter;
   }
 
-  if (process.env.SENDGRID_API_KEY) {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    console.log('[Mailer] Using SendGrid API');
+  if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+    const mailgun = new Mailgun(FormData);
+    const mg = mailgun.client({ key: process.env.MAILGUN_API_KEY });
+
+    console.log('[Mailer] Using Mailgun API');
 
     transporter = {
       sendMail: async (mailOptions: any) => {
-        const msg = {
-          to: mailOptions.to,
-          from: mailOptions.from,
-          subject: mailOptions.subject,
-          html: mailOptions.html,
-          text: mailOptions.text,
-        };
-
         try {
-          await sgMail.send(msg);
-          return { messageId: 'sendgrid-sent' };
+          const response = await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
+            from: mailOptions.from,
+            to: mailOptions.to,
+            subject: mailOptions.subject,
+            html: mailOptions.html,
+          });
+          return { messageId: response.id };
         } catch (error) {
-          console.error('[Mailer] SendGrid error:', error);
+          console.error('[Mailer] Mailgun error:', error);
           throw error;
         }
       },
     };
   } else {
-    // Fallback to nodemailer if no SendGrid key
+    // Fallback to nodemailer if no Mailgun key
     const nodemailer = require('nodemailer');
     const testAccount = await nodemailer.createTestAccount();
 
@@ -65,8 +65,8 @@ export const getTransporter = async (): Promise<Transporter> => {
  * Returns the Ethereal preview URL for a sent message, or false if unavailable.
  */
 export const getTestMessageUrl = (info: any): string | false => {
-  if (process.env.SENDGRID_API_KEY) {
-    return false; // SendGrid doesn't have preview URLs
+  if (process.env.MAILGUN_API_KEY) {
+    return false; // Mailgun doesn't have preview URLs
   }
   const nodemailer = require('nodemailer');
   return nodemailer.getTestMessageUrl(info);
