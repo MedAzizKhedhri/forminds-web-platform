@@ -111,9 +111,9 @@ const REFRESH_TOKEN_COOKIE = 'refreshToken';
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: config.nodeEnv === 'production',
-  sameSite: 'strict' as const,
+  sameSite: 'none' as const,
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: '/api/auth',
+  path: '/',
 };
 
 /**
