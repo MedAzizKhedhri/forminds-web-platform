@@ -1,5 +1,4 @@
-import FormData from 'form-data';
-import Mailgun from 'mailgun.js';
+import { Resend } from 'resend';
 import config from './index';
 
 interface Transporter {
@@ -10,7 +9,7 @@ let transporter: Transporter;
 
 /**
  * Lazily initializes and returns the email transporter.
- * Uses Mailgun API if MAILGUN_API_KEY is provided, otherwise falls back to Ethereal test account.
+ * Uses Resend API if RESEND_API_KEY is provided, otherwise falls back to Ethereal test account.
  */
 export const getTransporter = async (): Promise<Transporter> => {
   if (transporter) {
@@ -18,33 +17,34 @@ export const getTransporter = async (): Promise<Transporter> => {
   }
 
   // Debug: Log what we're reading
-  console.log('[Mailer] MAILGUN_API_KEY:', process.env.MAILGUN_API_KEY ? 'SET' : 'MISSING');
-  console.log('[Mailer] MAILGUN_DOMAIN:', process.env.MAILGUN_DOMAIN ? 'SET' : 'MISSING');
+  console.log('[Mailer] RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'SET' : 'MISSING');
 
-  if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
-    const mailgun = new Mailgun(FormData);
-    const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY });
+  if (process.env.RESEND_API_KEY) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    console.log('[Mailer] Using Mailgun API');
+    console.log('[Mailer] Using Resend API');
 
     transporter = {
       sendMail: async (mailOptions: any) => {
         try {
-          const response = await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
+          const response = await resend.emails.send({
             from: mailOptions.from,
             to: mailOptions.to,
             subject: mailOptions.subject,
             html: mailOptions.html,
           });
-          return { messageId: response.id };
+          if (response.error) {
+            throw response.error;
+          }
+          return { messageId: response.data?.id };
         } catch (error) {
-          console.error('[Mailer] Mailgun error:', error);
+          console.error('[Mailer] Resend error:', error);
           throw error;
         }
       },
     };
   } else {
-    // Fallback to nodemailer if no Mailgun key
+    // Fallback to nodemailer if no Resend key
     const nodemailer = require('nodemailer');
     const testAccount = await nodemailer.createTestAccount();
 
@@ -69,8 +69,8 @@ export const getTransporter = async (): Promise<Transporter> => {
  * Returns the Ethereal preview URL for a sent message, or false if unavailable.
  */
 export const getTestMessageUrl = (info: any): string | false => {
-  if (process.env.MAILGUN_API_KEY) {
-    return false; // Mailgun doesn't have preview URLs
+  if (process.env.RESEND_API_KEY) {
+    return false; // Resend doesn't have preview URLs
   }
   const nodemailer = require('nodemailer');
   return nodemailer.getTestMessageUrl(info);
