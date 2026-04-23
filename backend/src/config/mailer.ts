@@ -17,6 +17,10 @@ export const getTransporter = async (): Promise<Transporter> => {
     return transporter;
   }
 
+  // Debug: Log what we're reading
+  console.log('[Mailer] MAILGUN_API_KEY:', process.env.MAILGUN_API_KEY ? 'SET' : 'MISSING');
+  console.log('[Mailer] MAILGUN_DOMAIN:', process.env.MAILGUN_DOMAIN ? 'SET' : 'MISSING');
+
   if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
     const mailgun = new Mailgun(FormData);
     const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY });
