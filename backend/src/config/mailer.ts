@@ -19,7 +19,7 @@ export const getTransporter = async (): Promise<Transporter> => {
 
   if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
     const mailgun = new Mailgun(FormData);
-    const mg = mailgun.client({ key: process.env.MAILGUN_API_KEY });
+    const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY });
 
     console.log('[Mailer] Using Mailgun API');
 
