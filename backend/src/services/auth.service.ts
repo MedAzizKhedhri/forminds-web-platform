@@ -50,6 +50,7 @@ export const register = async (data: RegisterData): Promise<IUser> => {
     lastName: data.lastName,
     username: data.username.toLowerCase(),
     role: data.role,
+    isEmailVerified: true, // Auto-verify for testing
   });
 
   // Create empty profile based on role
