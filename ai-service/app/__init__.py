@@ -1,0 +1,1 @@
+# ForMinds AI application package

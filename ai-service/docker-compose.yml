@@ -1,0 +1,24 @@
+services:
+  db:
+    image: mongo:7
+    container_name: forminds_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  ai-service:
+    build: .
+    container_name: forminds_ai
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      - TRANSFORMERS_CACHE=/app/models_cache
+    volumes:
+      - ./models_cache:/app/models_cache
+
+volumes:
+  mongodata:

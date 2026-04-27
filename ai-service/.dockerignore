@@ -1,0 +1,11 @@
+Lib/
+Scripts/
+Include/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pym
+pip-wheel-metadata/
+models_cache/
+.env

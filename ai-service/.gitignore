@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pym
+*.pyc
+
+# Virtual environment directories
+venv/
+ENV/
+env/
+.venv/
+lib/
+Scripts/
+Include/
+share/
+pyvenv.cfg
+
+# Model cache and temporary assets
+models_cache/
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# Docker
+docker-compose.override.yml
+
+# Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/

@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sentence-transformers
+pydantic
+pydantic-settings
+pymongo
+numpy
+python-dotenv
+networkx
+scikit-learn
+matplotlib
+pandas
+python-multipart
+websockets

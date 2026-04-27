@@ -1,0 +1,44 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1031 >>
+stream
+BT
+/F1 14 Tf
+72 800 Td (App Analysis Report) Tj
+0 -20 Td (Prepared for: Ahmed Hamdi) Tj
+0 -20 Td (Date: April 15, 2026) Tj
+0 -30 Td (This application is a FastAPI-based AI matching microservice for intelligent recommendations.) Tj
+0 -20 Td (It combines legacy job matching, hybrid user-to-user compatibility, and ecosystem analytics.) Tj
+0 -20 Td (The system stores profiles, embeddings, interactions, and metrics in MongoDB.) Tj
+0 -20 Td (Legacy engine handles job-to-user matching with semantic, skill, and location scores.) Tj
+0 -20 Td (Enhanced engine builds profile embeddings, graph analytics, and multi-factor compatibility scoring.) Tj
+0 -20 Td (Key files: app/main.py, app/database.py, app/engine.py, app/ai_engine.py, app/models.py, app/config.py.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000010 00000 n 
+0000000057 00000 n 
+0000000118 00000 n 
+0000000300 00000 n 
+0000000605 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1127
+%%EOF
+
