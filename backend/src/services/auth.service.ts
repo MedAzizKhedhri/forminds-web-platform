@@ -60,11 +60,11 @@ export const register = async (data: RegisterData): Promise<IUser> => {
     await RecruiterProfile.create({ userId: user._id });
   }
 
-  // Generate verification token and send email
-  const verificationToken = await tokenService.generateVerificationToken(
-    user._id.toString()
-  );
-  await emailService.sendVerificationEmail(user.email, user.firstName, verificationToken);
+  // Email verification disabled for testing
+  // const verificationToken = await tokenService.generateVerificationToken(
+  //   user._id.toString()
+  // );
+  // await emailService.sendVerificationEmail(user.email, user.firstName, verificationToken);
 
   return user;
 };
@@ -89,13 +89,7 @@ export const login = async (
     throw new AppError('Invalid email or password.', 401);
   }
 
-  // Check email verification
-  if (!user.isEmailVerified) {
-    throw new AppError(
-      'Please verify your email address before logging in. Check your inbox for the verification link.',
-      403
-    );
-  }
+  // Email verification disabled for testing
 
   // Check if account is active
   if (!user.isActive) {
