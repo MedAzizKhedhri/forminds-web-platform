@@ -95,7 +95,7 @@ export default function ProfilePage() {
     const MAX_SIZE = 5 * 1024 * 1024; // 5 Mo
     if (file.size > MAX_SIZE) {
       toast({
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'La taille maximale autorisée est de 5 Mo.',
         variant: 'destructive',
       });
@@ -106,9 +106,9 @@ export default function ProfilePage() {
     setIsUploadingAvatar(true);
     try {
       await uploadAvatar(file);
-      toast({ title: t.common?.success || 'Success', description: 'Avatar updated.' });
+      toast({ title: t('common.success'), description: 'Avatar updated.' });
     } catch {
-      toast({ title: t.common?.error || 'Error', description: 'Failed to upload avatar.', variant: 'destructive' });
+      toast({ title: t('common.error'), description: 'Failed to upload avatar.', variant: 'destructive' });
     } finally {
       setIsUploadingAvatar(false);
       if (avatarInputRef.current) avatarInputRef.current.value = '';
@@ -120,9 +120,9 @@ export default function ProfilePage() {
     setIsDeletingAvatar(true);
     try {
       await deleteAvatar();
-      toast({ title: t.common?.success || 'Success', description: 'Avatar removed.' });
+      toast({ title: t('common.success'), description: 'Avatar removed.' });
     } catch {
-      toast({ title: t.common?.error || 'Error', description: 'Failed to remove avatar.', variant: 'destructive' });
+      toast({ title: t('common.error'), description: 'Failed to remove avatar.', variant: 'destructive' });
     } finally {
       setIsDeletingAvatar(false);
     }
@@ -135,7 +135,7 @@ export default function ProfilePage() {
     const MAX_SIZE = 5 * 1024 * 1024; // 5 Mo
     if (file.size > MAX_SIZE) {
       toast({
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'La taille maximale autorisée est de 5 Mo.',
         variant: 'destructive',
       });
@@ -146,9 +146,9 @@ export default function ProfilePage() {
     setIsUploadingCover(true);
     try {
       await uploadCover(file);
-      toast({ title: t.common?.success || 'Success', description: 'Cover image updated.' });
+      toast({ title: t('common.success'), description: 'Cover image updated.' });
     } catch {
-      toast({ title: t.common?.error || 'Error', description: 'Failed to upload cover image.', variant: 'destructive' });
+      toast({ title: t('common.error'), description: 'Failed to upload cover image.', variant: 'destructive' });
     } finally {
       setIsUploadingCover(false);
       if (coverInputRef.current) coverInputRef.current.value = '';
@@ -160,9 +160,9 @@ export default function ProfilePage() {
     setIsDeletingCover(true);
     try {
       await deleteCover();
-      toast({ title: t.common?.success || 'Success', description: 'Cover image removed.' });
+      toast({ title: t('common.success'), description: 'Cover image removed.' });
     } catch {
-      toast({ title: t.common?.error || 'Error', description: 'Failed to remove cover image.', variant: 'destructive' });
+      toast({ title: t('common.error'), description: 'Failed to remove cover image.', variant: 'destructive' });
     } finally {
       setIsDeletingCover(false);
     }
@@ -175,7 +175,7 @@ export default function ProfilePage() {
     const MAX_SIZE = 10 * 1024 * 1024; // 10 Mo
     if (file.size > MAX_SIZE) {
       toast({
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'La taille maximale autorisée est de 10 Mo.',
         variant: 'destructive',
       });
@@ -186,9 +186,9 @@ export default function ProfilePage() {
     setIsUploadingCV(true);
     try {
       await uploadCV(file);
-      toast({ title: t.common?.success || 'Success', description: 'CV uploaded.' });
+      toast({ title: t('common.success'), description: 'CV uploaded.' });
     } catch {
-      toast({ title: t.common?.error || 'Error', description: 'Failed to upload CV.', variant: 'destructive' });
+      toast({ title: t('common.error'), description: 'Failed to upload CV.', variant: 'destructive' });
     } finally {
       setIsUploadingCV(false);
       if (cvInputRef.current) cvInputRef.current.value = '';
@@ -200,9 +200,9 @@ export default function ProfilePage() {
     setIsDeletingCV(true);
     try {
       await deleteCV();
-      toast({ title: t.common?.success || 'Success', description: 'CV removed.' });
+      toast({ title: t('common.success'), description: 'CV removed.' });
     } catch {
-      toast({ title: t.common?.error || 'Error', description: 'Failed to remove CV.', variant: 'destructive' });
+      toast({ title: t('common.error'), description: 'Failed to remove CV.', variant: 'destructive' });
     } finally {
       setIsDeletingCV(false);
     }
@@ -224,12 +224,12 @@ export default function ProfilePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">{t.profile?.myProfile || 'My Profile'}</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t('profile.myProfile')}</h1>
         {!isAdmin && (
           <Button asChild>
             <Link href="/profile/edit">
               <Pencil className="mr-2 h-4 w-4" />
-              {t.profile?.editProfile || 'Edit Profile'}
+              {t('profile.editProfile')}
             </Link>
           </Button>
         )}
@@ -499,7 +499,7 @@ export default function ProfilePage() {
           {studentProfile.skills && studentProfile.skills.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>{t.profile?.skills || 'Skills'}</CardTitle>
+                <CardTitle>{t('profile.skills')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
@@ -516,7 +516,7 @@ export default function ProfilePage() {
           {studentProfile.education && studentProfile.education.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>{t.profile?.education || 'Education'}</CardTitle>
+                <CardTitle>{t('profile.education')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {studentProfile.education.map((edu, i) => (
@@ -546,7 +546,7 @@ export default function ProfilePage() {
           {studentProfile.experiences && studentProfile.experiences.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>{t.profile?.experience || 'Experience'}</CardTitle>
+                <CardTitle>{t('profile.experience')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {studentProfile.experiences.map((exp, i) => (
@@ -579,7 +579,7 @@ export default function ProfilePage() {
           {studentProfile.projects && studentProfile.projects.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>{t.profile?.projects || 'Projects'}</CardTitle>
+                <CardTitle>{t('profile.projects')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 sm:grid-cols-2">

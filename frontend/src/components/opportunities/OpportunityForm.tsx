@@ -71,8 +71,8 @@ export function OpportunityForm({
       <CardHeader>
         <CardTitle>
           {isEditing
-            ? t.opportunities?.edit || 'Edit Opportunity'
-            : t.opportunities?.create || 'Create Opportunity'}
+            ? t('opportunities.edit')
+            : t('opportunities.create')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -80,12 +80,12 @@ export function OpportunityForm({
           {/* Title */}
           <div className="space-y-2">
             <Label htmlFor="title">
-              {t.opportunities?.title || 'Title'}
+              {t('opportunities.title')}
             </Label>
             <Input
               id="title"
               {...register('title')}
-              placeholder={t.opportunities?.title || 'Title'}
+              placeholder={t('opportunities.title')}
             />
             {errors.title && (
               <p className="text-sm text-destructive">{errors.title.message}</p>
@@ -95,13 +95,13 @@ export function OpportunityForm({
           {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description">
-              {t.opportunities?.description || 'Description'}
+              {t('opportunities.description')}
             </Label>
             <Textarea
               id="description"
               rows={5}
               {...register('description')}
-              placeholder={t.opportunities?.description || 'Description'}
+              placeholder={t('opportunities.description')}
             />
             {errors.description && (
               <p className="text-sm text-destructive">{errors.description.message}</p>
@@ -110,24 +110,24 @@ export function OpportunityForm({
 
           {/* Type */}
           <div className="space-y-2">
-            <Label>{t.opportunities?.type || 'Type'}</Label>
+            <Label>{t('opportunities.type')}</Label>
             <Controller
               control={control}
               name="type"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
-                    <SelectValue placeholder={t.opportunities?.type || 'Type'} />
+                    <SelectValue placeholder={t('opportunities.type')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="stage">
-                      {t.opportunities?.stage || 'Internship'}
+                      {t('opportunities.stage')}
                     </SelectItem>
                     <SelectItem value="emploi">
-                      {t.opportunities?.emploi || 'Employment'}
+                      {t('opportunities.emploi')}
                     </SelectItem>
                     <SelectItem value="benevolat">
-                      {t.opportunities?.benevolat || 'Volunteering'}
+                      {t('opportunities.benevolat')}
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -141,12 +141,12 @@ export function OpportunityForm({
           {/* Location */}
           <div className="space-y-2">
             <Label htmlFor="location">
-              {t.opportunities?.location || 'Location'}
+              {t('opportunities.location')}
             </Label>
             <Input
               id="location"
               {...register('location')}
-              placeholder={t.opportunities?.location || 'Location'}
+              placeholder={t('opportunities.location')}
             />
             {errors.location && (
               <p className="text-sm text-destructive">{errors.location.message}</p>
@@ -156,12 +156,12 @@ export function OpportunityForm({
           {/* Domain */}
           <div className="space-y-2">
             <Label htmlFor="domain">
-              {t.opportunities?.domain || 'Domain'}
+              {t('opportunities.domain')}
             </Label>
             <Input
               id="domain"
               {...register('domain')}
-              placeholder={t.opportunities?.domain || 'Domain'}
+              placeholder={t('opportunities.domain')}
             />
             {errors.domain && (
               <p className="text-sm text-destructive">{errors.domain.message}</p>
@@ -170,7 +170,7 @@ export function OpportunityForm({
 
           {/* Skills */}
           <div className="space-y-2">
-            <Label>{t.opportunities?.skills || 'Required skills'}</Label>
+            <Label>{t('opportunities.skills')}</Label>
             <Controller
               control={control}
               name="skills"
@@ -178,7 +178,7 @@ export function OpportunityForm({
                 <SkillTags
                   skills={field.value || []}
                   onChange={field.onChange}
-                  placeholder={t.opportunities?.skills || 'Type a skill and press Enter'}
+                  placeholder={t('opportunities.skills')}
                 />
               )}
             />
@@ -187,13 +187,13 @@ export function OpportunityForm({
           {/* Requirements */}
           <div className="space-y-2">
             <Label htmlFor="requirements">
-              {t.opportunities?.requirements || 'Requirements'}
+              {t('opportunities.requirements')}
             </Label>
             <Textarea
               id="requirements"
               rows={3}
               {...register('requirements')}
-              placeholder={t.opportunities?.requirements || 'Requirements'}
+              placeholder={t('opportunities.requirements')}
             />
             {errors.requirements && (
               <p className="text-sm text-destructive">{errors.requirements.message}</p>
@@ -203,7 +203,7 @@ export function OpportunityForm({
           {/* Deadline */}
           <div className="space-y-2">
             <Label htmlFor="deadline">
-              {t.opportunities?.deadline || 'Deadline'}
+              {t('opportunities.deadline')}
             </Label>
             <Input
               id="deadline"
@@ -217,10 +217,10 @@ export function OpportunityForm({
 
           <Button type="submit" disabled={isLoading} className="w-full">
             {isLoading
-              ? t.common?.loading || 'Loading...'
+              ? t('common.loading')
               : isEditing
-                ? t.common?.save || 'Update'
-                : t.opportunities?.create || 'Create'}
+                ? t('common.save')
+                : t('opportunities.create')}
           </Button>
         </form>
       </CardContent>

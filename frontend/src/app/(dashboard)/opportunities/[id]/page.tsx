@@ -51,14 +51,14 @@ export default function OpportunityDetailPage() {
         setApplyDialogOpen(false);
         setCoverLetter('');
         toast({
-          title: t.common?.success || 'Success',
-          description: t.opportunities?.apply || 'Application submitted.',
+          title: t('common.success'),
+          description: t('opportunities.apply'),
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to submit application.',
       });
     }
@@ -77,15 +77,15 @@ export default function OpportunityDetailPage() {
       const res = await closeOpportunity(id);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.opportunities?.close || 'Opportunity closed.',
+          title: t('common.success'),
+          description: t('opportunities.close'),
         });
         getOpportunity(id);
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to close opportunity.',
       });
     }
@@ -100,7 +100,7 @@ export default function OpportunityDetailPage() {
       const res = await reopenOpportunity(id);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
+          title: t('common.success'),
           description: 'Opportunity reopened successfully.',
         });
         getOpportunity(id);
@@ -108,7 +108,7 @@ export default function OpportunityDetailPage() {
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to reopen opportunity.',
       });
     }
@@ -123,7 +123,7 @@ export default function OpportunityDetailPage() {
       const res = await deleteOpportunity(id);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
+          title: t('common.success'),
           description: 'Opportunity deleted successfully.',
         });
         router.push('/opportunities/mine');
@@ -131,7 +131,7 @@ export default function OpportunityDetailPage() {
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to delete opportunity.',
       });
     }
@@ -163,7 +163,7 @@ export default function OpportunityDetailPage() {
         className="gap-2"
       >
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       {/* Detail view */}
@@ -184,7 +184,7 @@ export default function OpportunityDetailPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {t.opportunities?.apply || 'Apply'}
+              {t('opportunities.apply')}
             </DialogTitle>
             <DialogDescription>
               {opportunity.title}
@@ -193,7 +193,7 @@ export default function OpportunityDetailPage() {
 
           <div className="space-y-3">
             <Label htmlFor="coverLetter">
-              {t.opportunities?.coverLetter || 'Cover letter'}
+              {t('opportunities.coverLetter')}
             </Label>
             <Textarea
               id="coverLetter"
@@ -201,8 +201,7 @@ export default function OpportunityDetailPage() {
               value={coverLetter}
               onChange={(e) => setCoverLetter(e.target.value)}
               placeholder={
-                t.opportunities?.coverLetterPlaceholder ||
-                'Present your motivation (optional)...'
+                t('opportunities.coverLetterPlaceholder')
               }
             />
           </div>
@@ -212,12 +211,12 @@ export default function OpportunityDetailPage() {
               variant="outline"
               onClick={() => setApplyDialogOpen(false)}
             >
-              {t.common?.cancel || 'Cancel'}
+              {t('common.cancel')}
             </Button>
             <Button onClick={handleApply} disabled={isApplying}>
               {isApplying
-                ? t.common?.loading || 'Loading...'
-                : t.opportunities?.apply || 'Apply'}
+                ? t('common.loading')
+                : t('opportunities.apply')}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -36,9 +36,6 @@ export default function CheckinPage() {
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const scannerContainerRef = useRef<HTMLDivElement>(null);
   const isTransitioningRef = useRef(false);
-
-  const et = t.events || {};
-
   // Only recruiters can access check-in page
   useEffect(() => {
     if (user && user.role !== 'recruiter') {
@@ -64,7 +61,7 @@ export default function CheckinPage() {
         const regUser = reg && typeof reg.userId === 'object' ? (reg.userId as UserType) : null;
         setScanResult({
           type: 'success',
-          message: (et.checkinSuccess as string) || 'Check-in successful!',
+          message: t('events.checkinSuccess'),
           user: regUser ? { firstName: regUser.firstName, lastName: regUser.lastName, avatar: regUser.avatar } : undefined,
         });
         setQrInput('');
@@ -75,14 +72,14 @@ export default function CheckinPage() {
       const msg = error?.response?.data?.message || 'Error';
       const status = error?.response?.status;
       if (msg?.includes('Already checked in') || status === 409) {
-        setScanResult({ type: 'warning', message: (et.alreadyCheckedIn as string) || 'Already checked in' });
+        setScanResult({ type: 'warning', message: t('events.alreadyCheckedIn') });
       } else {
-        setScanResult({ type: 'error', message: msg || ((et.invalidQR as string) || 'Invalid QR code') });
+        setScanResult({ type: 'error', message: msg || t('events.invalidQR') });
       }
     } finally {
       setScanning(false);
     }
-  }, [id, checkin, et, getEventParticipants]);
+  }, [id, checkin, t, getEventParticipants]);
 
   const startCamera = useCallback(async () => {
     if (!scannerContainerRef.current || isTransitioningRef.current) return;
@@ -165,13 +162,13 @@ export default function CheckinPage() {
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <Button variant="ghost" onClick={() => router.back()} className="gap-2">
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       <div className="flex items-center gap-3">
         <QrCode className="h-7 w-7 text-primary" />
         <div>
-          <h1 className="text-2xl font-bold">{et.checkin || 'Check-in'}</h1>
+          <h1 className="text-2xl font-bold">{t('events.checkin')}</h1>
           {event && <p className="text-muted-foreground">{event.title}</p>}
         </div>
       </div>
@@ -180,7 +177,7 @@ export default function CheckinPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base">{et.scanQR || 'Scan QR Code'}</CardTitle>
+            <CardTitle className="text-base">{t('events.scanQR')}</CardTitle>
             <div className="flex gap-2">
               <Button
                 variant={scanMode === 'camera' ? 'default' : 'outline'}
@@ -189,7 +186,7 @@ export default function CheckinPage() {
                 className="gap-1"
               >
                 <Camera className="h-4 w-4" />
-                {et.camera || 'Camera'}
+                {t('events.camera')}
               </Button>
               <Button
                 variant={scanMode === 'manual' ? 'default' : 'outline'}
@@ -198,7 +195,7 @@ export default function CheckinPage() {
                 className="gap-1"
               >
                 <Keyboard className="h-4 w-4" />
-                {et.manual || 'Manual'}
+                {t('events.manual')}
               </Button>
             </div>
           </div>
@@ -222,13 +219,13 @@ export default function CheckinPage() {
                     className="mt-2"
                     onClick={() => setScanMode('manual')}
                   >
-                    {et.switchToManual || 'Switch to manual input'}
+                    {t('events.switchToManual')}
                   </Button>
                 </div>
               )}
               {cameraActive && !cameraError && (
                 <p className="text-sm text-center text-muted-foreground">
-                  {et.pointCamera || 'Point the camera at a QR code to scan'}
+                  {t('events.pointCamera')}
                 </p>
               )}
             </div>
@@ -242,7 +239,7 @@ export default function CheckinPage() {
                 autoFocus
               />
               <Button onClick={() => handleCheckin(qrInput)} disabled={scanning || !qrInput.trim()}>
-                {et.checkin || 'Check-in'}
+                {t('events.checkin')}
               </Button>
             </div>
           )}
@@ -288,9 +285,9 @@ export default function CheckinPage() {
           <div className="flex items-center justify-between">
             <CardTitle className="text-base flex items-center gap-2">
               <Users className="h-5 w-5" />
-              {et.participants || 'Participants'} ({total})
+              {t('events.participants')} ({total})
             </CardTitle>
-            <Badge variant="secondary">{checkedInCount} / {total} {et.checkedIn || 'checked in'}</Badge>
+            <Badge variant="secondary">{checkedInCount} / {total} {t('events.checkedIn')}</Badge>
           </div>
         </CardHeader>
         <CardContent>
@@ -318,10 +315,10 @@ export default function CheckinPage() {
                     {p.checkedIn ? (
                       <Badge className="bg-green-100 text-green-800 gap-1">
                         <CheckCircle2 className="h-3 w-3" />
-                        {et.checkedIn || 'Checked In'}
+                        {t('events.checkedIn') || 'Checked In'}
                       </Badge>
                     ) : (
-                      <Badge variant="secondary">{et.notCheckedIn || 'Not Checked In'}</Badge>
+                      <Badge variant="secondary">{t('events.notCheckedIn') || 'Not Checked In'}</Badge>
                     )}
                   </div>
                 );

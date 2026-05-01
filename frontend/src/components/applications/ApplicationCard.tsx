@@ -54,7 +54,7 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
         <CardContent className="space-y-3">
           {type && (
             <Badge variant="outline" className="text-xs">
-              {t.opportunities?.[type] ?? typeLabels[type]}
+              {t(`opportunities.${type}`)}
             </Badge>
           )}
 
@@ -75,7 +75,7 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground pt-1">
             <Calendar className="h-3.5 w-3.5 shrink-0" />
             <span>
-              {t.applications?.appliedOn ?? 'Applied on'} {appliedDate}
+              {t('applications.appliedOn')} {appliedDate}
             </span>
           </div>
         </CardContent>

@@ -48,14 +48,14 @@ export default function FeedPage() {
       const res = await createPost(content);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.feed?.createPost || 'Post published.',
+          title: t('common.success'),
+          description: t('feed.createPost'),
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to create post.',
       });
     } finally {
@@ -68,14 +68,14 @@ export default function FeedPage() {
       const res = await updatePost(postId, content);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.feed?.editPost || 'Post updated.',
+          title: t('common.success'),
+          description: t('feed.editPost'),
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to update post.',
       });
     }
@@ -86,14 +86,14 @@ export default function FeedPage() {
       const res = await deletePost(postId);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.feed?.delete || 'Post deleted.',
+          title: t('common.success'),
+          description: t('feed.delete'),
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to delete post.',
       });
     }
@@ -105,7 +105,7 @@ export default function FeedPage() {
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to like post.',
       });
     }
@@ -117,7 +117,7 @@ export default function FeedPage() {
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to unlike post.',
       });
     }
@@ -129,7 +129,7 @@ export default function FeedPage() {
     <div className="mx-auto max-w-2xl space-y-6 p-4">
       <div className="flex items-center gap-2">
         <MessageSquare className="h-6 w-6" />
-        <h1 className="text-2xl font-bold">{t.feed?.title || 'Feed'}</h1>
+        <h1 className="text-2xl font-bold">{t('feed.title')}</h1>
       </div>
 
       <PostForm onSubmit={handleCreate} isLoading={isCreating} />

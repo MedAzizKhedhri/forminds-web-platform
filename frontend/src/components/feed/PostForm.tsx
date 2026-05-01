@@ -37,8 +37,8 @@ export function PostForm({
   };
 
   const submitLabel = isEditing
-    ? t.feed?.update || 'Update'
-    : t.feed?.createPost || 'Publish';
+    ? t('feed.update')
+    : t('feed.createPost');
 
   return (
     <Card className="shadow-sm">
@@ -47,7 +47,7 @@ export function PostForm({
           <Textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder={t.feed?.placeholder || "What's on your mind?"}
+            placeholder={t('feed.placeholder')}
             rows={3}
             maxLength={MAX_CHARACTERS}
             disabled={isLoading}
@@ -68,7 +68,7 @@ export function PostForm({
                   onClick={onCancel}
                   disabled={isLoading}
                 >
-                  {t.common?.cancel || 'Cancel'}
+                  {t('common.cancel')}
                 </Button>
               )}
               <Button

@@ -113,19 +113,19 @@ export function Navbar({ onToggleSidebar, sidebarOpen }: NavbarProps) {
               <DropdownMenuItem asChild>
                 <Link href="/profile" className="cursor-pointer gap-2">
                   <User className="h-4 w-4" />
-                  {t.profile?.myProfile || 'My Profile'}
+                  {t('profile.myProfile')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/settings" className="cursor-pointer gap-2">
                   <Settings className="h-4 w-4" />
-                  {t.nav?.settings || 'Settings'}
+                  {t('nav.settings')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600 gap-2">
                 <LogOut className="h-4 w-4" />
-                {t.common?.logout || 'Log out'}
+                {t('common.logout')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

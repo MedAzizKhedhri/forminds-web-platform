@@ -110,7 +110,7 @@ export function ConnectionCard({
                 ) : (
                   <Check className="mr-1 h-4 w-4" />
                 )}
-                {t.network?.accept || 'Accept'}
+                {t('network.accept')}
               </Button>
               <Button
                 size="sm"
@@ -123,7 +123,7 @@ export function ConnectionCard({
                 ) : (
                   <X className="mr-1 h-4 w-4" />
                 )}
-                {t.network?.reject || 'Reject'}
+                {t('network.reject')}
               </Button>
             </>
           )}
@@ -140,7 +140,7 @@ export function ConnectionCard({
               ) : (
                 <UserMinus className="mr-1 h-4 w-4" />
               )}
-              {t.network?.remove || 'Remove'}
+              {t('network.remove')}
             </Button>
           )}
 
@@ -159,7 +159,7 @@ export function ConnectionCard({
               ) : (
                 <UserPlus className="mr-1 h-4 w-4" />
               )}
-              {t.network?.connect || 'Connect'}
+              {t('network.connect')}
             </Button>
           )}
         </div>

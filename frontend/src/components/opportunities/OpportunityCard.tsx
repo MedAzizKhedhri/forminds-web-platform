@@ -22,9 +22,9 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
   const { t } = useLocale();
 
   const typeLabel: Record<Opportunity['type'], string> = {
-    stage: t.opportunities?.stage || 'Internship',
-    emploi: t.opportunities?.emploi || 'Employment',
-    benevolat: t.opportunities?.benevolat || 'Volunteering',
+    stage: t('opportunities.stage'),
+    emploi: t('opportunities.emploi'),
+    benevolat: t('opportunities.benevolat'),
   };
 
   const recruiter =
@@ -57,7 +57,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
 
           {opportunity.domain && (
             <p className="text-sm text-muted-foreground truncate">
-              {t.opportunities?.domain || 'Domain'}: {opportunity.domain}
+              {t('opportunities.domain')}: {opportunity.domain}
             </p>
           )}
 
@@ -65,7 +65,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar className="h-4 w-4 shrink-0" />
               <span>
-                {t.opportunities?.deadline || 'Deadline'}:{' '}
+                {t('opportunities.deadline')}:{' '}
                 {new Date(opportunity.deadline).toLocaleDateString()}
               </span>
             </div>

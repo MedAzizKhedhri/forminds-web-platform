@@ -49,7 +49,7 @@ export function PendingRequestList({
     return (
       <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
         <Inbox className="h-12 w-12 mb-4 opacity-50" />
-        <p className="text-sm">{t.network?.noPending || 'No pending requests'}</p>
+        <p className="text-sm">{t('network.noPending')}</p>
       </div>
     );
   }

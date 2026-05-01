@@ -59,14 +59,14 @@ export default function MyOpportunitiesPage() {
       const res = await closeOpportunity(id);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.opportunities?.close || 'Opportunity closed.',
+          title: t('common.success'),
+          description: t('opportunities.close'),
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to close opportunity.',
       });
     }
@@ -81,14 +81,14 @@ export default function MyOpportunitiesPage() {
       const res = await reopenOpportunity(id);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
+          title: t('common.success'),
           description: 'Opportunity reopened successfully.',
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to reopen opportunity.',
       });
     }
@@ -103,14 +103,14 @@ export default function MyOpportunitiesPage() {
       const res = await deleteOpportunity(id);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
+          title: t('common.success'),
           description: 'Opportunity deleted successfully.',
         });
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to delete opportunity.',
       });
     }
@@ -127,7 +127,7 @@ export default function MyOpportunitiesPage() {
       <div className="flex items-center gap-2">
         <ClipboardList className="h-6 w-6" />
         <h1 className="text-2xl font-bold">
-          {t.opportunities?.myOpportunities || 'My Opportunities'}
+          {t('opportunities.myOpportunities')}
         </h1>
       </div>
 
@@ -177,7 +177,7 @@ export default function MyOpportunitiesPage() {
                   >
                     <Link href={`/opportunities/${opp._id}`}>
                       <Eye className="h-4 w-4 mr-1" />
-                      {((t.common as any)?.view) || 'View'}
+                      {t('common.view')}
                     </Link>
                   </Button>
 
@@ -188,7 +188,7 @@ export default function MyOpportunitiesPage() {
                       onClick={() => handleClose(opp._id)}
                     >
                       <XCircle className="h-4 w-4 mr-1" />
-                      {t.common?.close || 'Close'}
+                      {t('common.close')}
                     </Button>
                   )}
 
@@ -209,7 +209,7 @@ export default function MyOpportunitiesPage() {
                     onClick={() => handleDelete(opp._id)}
                   >
                     <Trash2 className="h-4 w-4 mr-1" />
-                    {((t.opportunities as any)?.delete) || 'Delete'}
+                    {t('opportunities.delete')}
                   </Button>
                 </div>
               </CardContent>
@@ -222,7 +222,7 @@ export default function MyOpportunitiesPage() {
       {!isLoading && opportunities.length === 0 && (
         <div className="text-center py-12 text-muted-foreground">
           <ClipboardList className="h-12 w-12 mx-auto mb-4 opacity-50" />
-          <p>{t.opportunities?.noOpportunities || 'No opportunities available'}</p>
+          <p>{t('opportunities.noOpportunities')}</p>
         </div>
       )}
 

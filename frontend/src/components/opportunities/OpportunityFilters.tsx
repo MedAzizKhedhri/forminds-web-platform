@@ -75,25 +75,25 @@ export function OpportunityFilters({ onFilterChange }: OpportunityFiltersProps) 
     <div className="flex flex-col sm:flex-row gap-3">
       <Select value={type || 'all'} onValueChange={handleTypeChange}>
         <SelectTrigger className="w-full sm:w-[180px]">
-          <SelectValue placeholder={t.opportunities?.filterType || 'Type'} />
+          <SelectValue placeholder={t('opportunities.filterType')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">{t.common?.search || 'All'}</SelectItem>
-          <SelectItem value="stage">{t.opportunities?.stage || 'Internship'}</SelectItem>
-          <SelectItem value="emploi">{t.opportunities?.emploi || 'Employment'}</SelectItem>
-          <SelectItem value="benevolat">{t.opportunities?.benevolat || 'Volunteering'}</SelectItem>
+          <SelectItem value="all">{t('common.search')}</SelectItem>
+          <SelectItem value="stage">{t('opportunities.stage')}</SelectItem>
+          <SelectItem value="emploi">{t('opportunities.emploi')}</SelectItem>
+          <SelectItem value="benevolat">{t('opportunities.benevolat')}</SelectItem>
         </SelectContent>
       </Select>
 
       <Input
-        placeholder={t.opportunities?.filterLocation || 'Location'}
+        placeholder={t('opportunities.filterLocation')}
         value={location}
         onChange={(e) => handleLocationChange(e.target.value)}
         className="w-full sm:w-[200px]"
       />
 
       <Input
-        placeholder={t.opportunities?.filterDomain || 'Domain'}
+        placeholder={t('opportunities.filterDomain')}
         value={domain}
         onChange={(e) => handleDomainChange(e.target.value)}
         className="w-full sm:w-[200px]"

@@ -46,9 +46,8 @@ export default function EventDetailPage() {
   const { toast } = useToast();
   const [actionLoading, setActionLoading] = useState(false);
 
-  const et = (t.events || {}) as typeof t.events & { deleteEvent?: string; confirmDelete?: string };
-  const typeLabels = (et.types || {}) as Record<string, string>;
-  const statusLabels = (et.status || {}) as Record<string, string>;
+  const typeLabels = (t('events.types', { returnObjects: true }) || {}) as Record<string, string>;
+  const statusLabels = (t('events.status', { returnObjects: true }) || {}) as Record<string, string>;
 
   useEffect(() => {
     if (id) {
@@ -68,12 +67,12 @@ export default function EventDetailPage() {
     try {
       const res = await registerForEvent(id);
       if (res?.success) {
-        toast({ title: t.common?.success || 'Success', description: res.message });
+        toast({ title: t('common.success'), description: res.message });
         getEvent(id);
         getMyRegistration(id);
       }
     } catch {
-      toast({ title: t.common?.error || 'Error', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setActionLoading(false);
     }
@@ -85,12 +84,12 @@ export default function EventDetailPage() {
     try {
       const res = await cancelRegistration(id);
       if (res?.success) {
-        toast({ title: t.common?.success || 'Success', description: res.message });
+        toast({ title: t('common.success'), description: res.message });
         getEvent(id);
         getMyRegistration(id);
       }
     } catch {
-      toast({ title: t.common?.error || 'Error', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setActionLoading(false);
     }
@@ -102,11 +101,11 @@ export default function EventDetailPage() {
     try {
       const res = await cancelEvent(id);
       if (res?.success) {
-        toast({ title: t.common?.success || 'Success', description: res.message });
+        toast({ title: t('common.success'), description: res.message });
         getEvent(id);
       }
     } catch {
-      toast({ title: t.common?.error || 'Error', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setActionLoading(false);
     }
@@ -118,11 +117,11 @@ export default function EventDetailPage() {
     try {
       const res = await deleteEvent(id);
       if (res?.success) {
-        toast({ title: t.common?.success || 'Success', description: res.message });
+        toast({ title: t('common.success'), description: res.message });
         router.push('/events/mine');
       }
     } catch {
-      toast({ title: t.common?.error || 'Error', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setActionLoading(false);
     }
@@ -142,7 +141,7 @@ export default function EventDetailPage() {
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <Button variant="ghost" onClick={() => router.back()} className="gap-2">
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       {/* Event Image */}
@@ -168,7 +167,7 @@ export default function EventDetailPage() {
           {event.isOnline && (
             <Badge variant="outline" className="gap-1">
               <Globe className="h-3 w-3" />
-              {et.online || 'Online'}
+              {t('events.online') || 'Online'}
             </Badge>
           )}
         </div>
@@ -194,7 +193,7 @@ export default function EventDetailPage() {
                   rel="noopener noreferrer"
                   className="text-primary hover:underline font-medium"
                 >
-                  {et.meetingUrl || 'Join Meeting'}
+                  {t('events.meetingUrl')}
                 </a>
               </CardContent>
             </Card>
@@ -226,7 +225,7 @@ export default function EventDetailPage() {
               </div>
               {organizer && (
                 <div className="pt-2 border-t text-muted-foreground">
-                  <span className="font-medium">{et.organizer || 'Organizer'}:</span>{' '}
+                  <span className="font-medium">{t('events.organizer') || 'Organizer'}:</span>{' '}
                   {organizer.firstName} {organizer.lastName}
                 </div>
               )}
@@ -243,8 +242,9 @@ export default function EventDetailPage() {
                     <div className="space-y-2">
                       <Button variant="outline" className="w-full gap-2" onClick={() => router.push(`/events/${event._id}/my-registration`)}>
                         <UserCheck className="h-4 w-4" />
-                        {et.viewTicket || 'View Ticket'}
+                        {t('events.viewTicket')}
                       </Button>
+
                       <Button
                         variant="destructive"
                         className="w-full gap-2"
@@ -252,8 +252,9 @@ export default function EventDetailPage() {
                         disabled={actionLoading}
                       >
                         <UserX className="h-4 w-4" />
-                        {et.cancelRegistration || 'Cancel Registration'}
+                        {t('events.cancelRegistration')}
                       </Button>
+
                     </div>
                   ) : (
                     <Button
@@ -262,8 +263,8 @@ export default function EventDetailPage() {
                       disabled={actionLoading || spotsLeft <= 0}
                     >
                       {spotsLeft <= 0
-                        ? (et.eventFull || 'Event is full')
-                        : (et.register || 'Register')}
+                        ? t('events.eventFull')
+                        : t('events.register')}
                     </Button>
                   )}
                 </>
@@ -277,32 +278,32 @@ export default function EventDetailPage() {
                     className="w-full"
                     onClick={() => router.push(`/events/${event._id}/edit`)}
                   >
-                    {t.common?.edit || 'Edit'}
+                    {t('common.edit')}
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full"
                     onClick={() => router.push(`/events/${event._id}/checkin`)}
                   >
-                    {et.scanQR || 'Scan QR Code'}
+                    {t('events.scanQR')}
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button variant="destructive" className="w-full">
-                        {et.cancelEvent || 'Cancel Event'}
+                        {t('events.cancelEvent')}
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>{et.cancelEvent || 'Cancel Event'}</AlertDialogTitle>
+                        <AlertDialogTitle>{t('events.cancelEvent')}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          {et.confirmCancel || 'Are you sure you want to cancel this event?'}
+                          {t('events.confirmCancel')}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>{t.common?.cancel || 'Cancel'}</AlertDialogCancel>
+                        <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
                         <AlertDialogAction onClick={handleCancelEvent}>
-                          {t.common?.confirm || 'Confirm'}
+                          {t('common.confirm')}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
@@ -318,20 +319,20 @@ export default function EventDetailPage() {
               <AlertDialogTrigger asChild>
                 <Button variant="destructive" className="w-full gap-2" disabled={actionLoading}>
                   <Trash2 className="h-4 w-4" />
-                  {et.deleteEvent || 'Delete Event'}
+                  {t('events.deleteEvent')}
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>{et.deleteEvent || 'Delete Event'}</AlertDialogTitle>
+                  <AlertDialogTitle>{t('events.deleteEvent')}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    {et.confirmDelete || 'Are you sure you want to permanently delete this event? This action cannot be undone.'}
+                    {t('events.confirmDelete')}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>{t.common?.cancel || 'Cancel'}</AlertDialogCancel>
+                  <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
                   <AlertDialogAction onClick={handleDeleteEvent}>
-                    {t.common?.confirm || 'Confirm'}
+                    {t('common.confirm')}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>

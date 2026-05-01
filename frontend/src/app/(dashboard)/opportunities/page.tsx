@@ -49,7 +49,7 @@ export default function OpportunitiesPage() {
         <div className="flex items-center gap-2">
           <Briefcase className="h-6 w-6" />
           <h1 className="text-2xl font-bold tracking-tight">
-            {t.opportunities?.title || 'Opportunities'}
+            {t('opportunities.title')}
           </h1>
         </div>
 
@@ -57,7 +57,7 @@ export default function OpportunitiesPage() {
           <Button asChild>
             <Link href="/opportunities/create">
               <Plus className="h-4 w-4 mr-2" />
-              {t.opportunities?.create || 'Create opportunity'}
+              {t('opportunities.create')}
             </Link>
           </Button>
         )}
@@ -94,7 +94,7 @@ export default function OpportunitiesPage() {
       {!isLoading && opportunities.length === 0 && (
         <div className="text-center py-12 text-muted-foreground">
           <Briefcase className="h-12 w-12 mx-auto mb-4 opacity-50" />
-          <p>{t.opportunities?.noOpportunities || 'No opportunities available'}</p>
+          <p>{t('opportunities.noOpportunities')}</p>
         </div>
       )}
 

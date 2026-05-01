@@ -32,7 +32,7 @@ export function CommentForm({ onSubmit, isLoading }: CommentFormProps) {
       <Input
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder={t.feed?.writeComment || 'Write a comment...'}
+        placeholder={t('feed.writeComment')}
         disabled={isLoading}
         className="flex-1"
       />
@@ -43,7 +43,7 @@ export function CommentForm({ onSubmit, isLoading }: CommentFormProps) {
         disabled={!content.trim() || isLoading}
       >
         <Send className="h-4 w-4" />
-        <span className="sr-only">{t.feed?.send || 'Send'}</span>
+        <span className="sr-only">{t('feed.send')}</span>
       </Button>
     </form>
   );

@@ -113,7 +113,7 @@ export default function AdminRecruitersPage() {
       <div className="flex items-center gap-3">
         <ShieldCheck className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.admin?.recruitersVerification || 'Organisation Verification'}
+          {t('admin.recruitersVerification')}
         </h1>
       </div>
 
@@ -142,7 +142,7 @@ export default function AdminRecruitersPage() {
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
           <Inbox className="h-16 w-16 mb-4 opacity-50" />
           <p className="text-lg font-medium">
-            {t.admin?.noUnverifiedRecruiters || 'No unverified organisations'}
+            {t('admin.noUnverifiedRecruiters')}
           </p>
           <p className="text-sm mt-1">
             {'All organisations have been verified'}
@@ -201,7 +201,7 @@ export default function AdminRecruitersPage() {
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="h-4 w-4 shrink-0" />
                       <span>
-                        {t.admin?.registeredOn || 'Registered'}:{' '}
+                        {t('admin.registeredOn')}:{' '}
                         {getRecruiterRegisteredDate(recruiter)}
                       </span>
                     </div>
@@ -215,7 +215,7 @@ export default function AdminRecruitersPage() {
                     <ShieldCheck className="h-4 w-4 mr-2" />
                     {actionLoading === userId
                       ? ('Verifying...')
-                      : (t.admin?.verify || 'Verify')}
+                      : (t('admin.verify'))}
                   </Button>
                 </CardContent>
               </Card>

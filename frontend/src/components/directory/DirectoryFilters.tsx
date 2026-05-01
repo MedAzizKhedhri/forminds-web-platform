@@ -62,33 +62,33 @@ export function DirectoryFilters({ onFilterChange, initialFilters }: DirectoryFi
     <div className="flex flex-col sm:flex-row gap-3">
       <div className="flex-1 space-y-1.5">
         <Label htmlFor="filter-skills">
-          {t.directory?.filterSkills || 'Skills'}
+          {t('directory.filterSkills')}
         </Label>
         <Input
           id="filter-skills"
-          placeholder={t.directory?.searchPlaceholder || 'Search...'}
+          placeholder={t('directory.searchPlaceholder')}
           value={skills}
           onChange={(e) => handleSkillsChange(e.target.value)}
         />
       </div>
       <div className="flex-1 space-y-1.5">
         <Label htmlFor="filter-domain">
-          {t.directory?.filterDomain || 'Domain'}
+          {t('directory.filterDomain')}
         </Label>
         <Input
           id="filter-domain"
-          placeholder={t.directory?.searchPlaceholder || 'Search...'}
+          placeholder={t('directory.searchPlaceholder')}
           value={domain}
           onChange={(e) => handleDomainChange(e.target.value)}
         />
       </div>
       <div className="flex-1 space-y-1.5">
         <Label htmlFor="filter-city">
-          {t.directory?.filterCity || 'City'}
+          {t('directory.filterCity')}
         </Label>
         <Input
           id="filter-city"
-          placeholder={t.directory?.searchPlaceholder || 'Search...'}
+          placeholder={t('directory.searchPlaceholder')}
           value={city}
           onChange={(e) => handleCityChange(e.target.value)}
         />

@@ -76,7 +76,7 @@ export function DirectoryGrid({
           <Users className="h-8 w-8 text-muted-foreground" />
         </div>
         <p className="text-lg font-medium text-muted-foreground">
-          {t.directory?.noProfiles || 'No profiles found'}
+          {t('directory.noProfiles')}
         </p>
       </div>
     );
@@ -104,7 +104,7 @@ export function DirectoryGrid({
             disabled={page <= 1}
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
-            {t.common?.back || 'Previous'}
+            {t('common.back')}
           </Button>
           <span className="text-sm text-muted-foreground">
             Page {page} / {totalPages}
@@ -115,7 +115,7 @@ export function DirectoryGrid({
             onClick={() => onPageChange(page + 1)}
             disabled={page >= totalPages}
           >
-            {t.common?.next || 'Next'}
+            {t('common.next')}
             <ChevronRight className="h-4 w-4 ml-1" />
           </Button>
         </div>

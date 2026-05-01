@@ -115,7 +115,7 @@ export default function AdminAuditLogPage() {
     if (typeof log.adminId === 'object' && log.adminId !== null) {
       return `${log.adminId.firstName} ${log.adminId.lastName}`;
     }
-    return t.admin?.unknownAdmin || 'Unknown Admin';
+    return t('admin.unknownAdmin');
   };
 
   const formatDetails = (details?: Record<string, unknown>): string => {
@@ -137,7 +137,7 @@ export default function AdminAuditLogPage() {
       <div className="flex items-center gap-3">
         <ScrollText className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.admin?.auditLog || 'Audit Log'}
+          {t('admin.auditLog')}
         </h1>
       </div>
 
@@ -152,7 +152,7 @@ export default function AdminAuditLogPage() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Select value={actionFilter} onValueChange={setActionFilter}>
               <SelectTrigger className="w-full sm:w-[250px]">
-                <SelectValue placeholder={t.admin?.filterByAction || 'Action Type'} />
+                <SelectValue placeholder={t('admin.filterByAction')} />
               </SelectTrigger>
               <SelectContent>
                 {ACTION_TYPES.map((type) => (
@@ -174,22 +174,22 @@ export default function AdminAuditLogPage() {
               <thead>
                 <tr className="border-b bg-muted/50">
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.date || 'Date'}
+                    {t('admin.date')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.adminCol || 'Admin'}
+                    {t('admin.adminCol')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.action || 'Action'}
+                    {t('admin.action')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.targetType || 'Target Type'}
+                    {t('admin.targetType')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.details || 'Details'}
+                    {t('admin.details')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.ipAddress || 'IP Address'}
+                    {t('admin.ipAddress')}
                   </th>
                 </tr>
               </thead>
@@ -209,7 +209,7 @@ export default function AdminAuditLogPage() {
                   <tr>
                     <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
                       <Inbox className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>{t.admin?.noAuditLogs || 'No audit logs found'}</p>
+                      <p>{t('admin.noAuditLogs')}</p>
                     </td>
                   </tr>
                 ) : (

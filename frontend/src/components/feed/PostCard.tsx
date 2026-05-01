@@ -78,7 +78,7 @@ export function PostCard({
   };
 
   const handleDelete = () => {
-    if (window.confirm(t.feed?.confirmDelete || 'Are you sure you want to delete this post?')) {
+    if (window.confirm(t('feed.confirmDelete'))) {
       onDelete?.();
     }
   };
@@ -116,7 +116,7 @@ export function PostCard({
               {isAuthor && (
                 <DropdownMenuItem onClick={() => setIsEditing(true)}>
                   <Pencil className="h-4 w-4 mr-2" />
-                  {t.feed?.edit || 'Edit'}
+                  {t('feed.edit')}
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
@@ -124,7 +124,7 @@ export function PostCard({
                 className="text-destructive focus:text-destructive"
               >
                 <Trash2 className="h-4 w-4 mr-2" />
-                {t.feed?.delete || 'Delete'}
+                {t('feed.delete')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

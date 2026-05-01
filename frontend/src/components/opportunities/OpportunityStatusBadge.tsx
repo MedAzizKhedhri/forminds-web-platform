@@ -19,7 +19,7 @@ export function OpportunityStatusBadge({ status }: OpportunityStatusBadgeProps) 
   const { t } = useLocale();
 
   const label =
-    t.opportunities?.status?.[status] || status.charAt(0).toUpperCase() + status.slice(1);
+    t(`opportunities.status_${status}`);
 
   return (
     <Badge variant="outline" className={cn(statusStyles[status])}>

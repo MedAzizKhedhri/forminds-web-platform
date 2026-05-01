@@ -62,12 +62,12 @@ export default function NetworkPage() {
     try {
       const res = await respondToRequest(connectionId, 'accepted');
       if (res.success) {
-        toast({ title: t.common.success, description: t.network.accept });
+        toast({ title: t('common.success'), description: t('network.accept') });
         fetchPendingRequests();
         fetchConnections();
       }
     } catch {
-      toast({ title: t.common.error, variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     }
   };
 
@@ -75,24 +75,24 @@ export default function NetworkPage() {
     try {
       const res = await respondToRequest(connectionId, 'rejected');
       if (res.success) {
-        toast({ title: t.common.success, description: t.network.reject });
+        toast({ title: t('common.success'), description: t('network.reject') });
         fetchPendingRequests();
       }
     } catch {
-      toast({ title: t.common.error, variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     }
   };
 
   const handleRemove = async (connectionId: string) => {
-    if (!confirm(t.network.confirmRemove)) return;
+    if (!confirm(t('network.confirmRemove'))) return;
     try {
       const res = await removeConnection(connectionId);
       if (res.success) {
-        toast({ title: t.common.success, description: t.network.remove });
+        toast({ title: t('common.success'), description: t('network.remove') });
         fetchConnections();
       }
     } catch {
-      toast({ title: t.common.error, variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     }
   };
 
@@ -100,14 +100,14 @@ export default function NetworkPage() {
     try {
       const res = await sendRequest(userId);
       if (res.success) {
-        toast({ title: t.common.success, description: t.network.connect });
+        toast({ title: t('common.success'), description: t('network.connect') });
         fetchSuggestions();
         fetchSentRequests();
       }
     } catch (err) {
       const axiosErr = err as AxiosError<{ message?: string }>;
-      const message = axiosErr.response?.data?.message || t.common.error;
-      toast({ title: t.common.error, description: message, variant: 'destructive' });
+      const message = axiosErr.response?.data?.message || t('common.error');
+      toast({ title: t('common.error'), description: message, variant: 'destructive' });
       fetchSuggestions();
     }
   };
@@ -116,16 +116,16 @@ export default function NetworkPage() {
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Users className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold tracking-tight">{t.network.title}</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t('network.title')}</h1>
       </div>
 
       <Tabs defaultValue="connections" className="w-full">
         <TabsList className="flex flex-wrap h-auto gap-1 bg-muted/50 p-1 rounded-xl">
           <TabsTrigger value="connections">
-            {t.network.connections}
+            {t('network.connections')}
           </TabsTrigger>
           <TabsTrigger value="received" className="gap-2">
-            {t.network.pendingRequests}
+            {t('network.pendingRequests')}
             {pendingRequests.length > 0 && (
               <Badge variant="destructive" className="ml-1 h-5 min-w-5 px-1.5 text-xs">
                 {pendingRequests.length}
@@ -133,10 +133,10 @@ export default function NetworkPage() {
             )}
           </TabsTrigger>
           <TabsTrigger value="sent">
-            {t.network.sentRequests}
+            {t('network.sentRequests')}
           </TabsTrigger>
           <TabsTrigger value="suggestions">
-            {t.network.suggestions}
+            {t('network.suggestions')}
           </TabsTrigger>
         </TabsList>
 
@@ -164,7 +164,7 @@ export default function NetworkPage() {
           ) : sentRequests.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
               <Inbox className="h-12 w-12 mb-4 opacity-50" />
-              <p className="text-sm">{t.network.noPending}</p>
+              <p className="text-sm">{t('network.noPending')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

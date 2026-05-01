@@ -34,12 +34,10 @@ export default function RecommendationsPage() {
   const { user, isLoading: isAuthLoading } = useAuth();
   const { t } = useLocale();
   const router = useRouter();
-
-  const mt = t.matching || {};
   const oppTypes: Record<string, string> = {
-    stage: t.opportunities?.stage || 'Internship',
-    emploi: t.opportunities?.emploi || 'Employment',
-    benevolat: t.opportunities?.benevolat || 'Volunteering',
+    stage: t('opportunities.stage'),
+    emploi: t('opportunities.emploi'),
+    benevolat: t('opportunities.benevolat'),
   };
 
   useEffect(() => {
@@ -60,10 +58,10 @@ export default function RecommendationsPage() {
         <div>
           <div className="flex items-center gap-3">
             <Sparkles className="h-7 w-7 text-primary" />
-            <h1 className="text-2xl font-bold">{mt.title || 'Recommendations'}</h1>
+            <h1 className="text-2xl font-bold">{t('matching.title') || 'Recommendations'}</h1>
           </div>
           <p className="text-muted-foreground mt-1 ml-10">
-            {mt.subtitle || 'Opportunities matched to your profile by AI'}
+            {t('matching.subtitle') || 'Opportunities matched to your profile by AI'}
           </p>
         </div>
         <Button
@@ -73,7 +71,7 @@ export default function RecommendationsPage() {
           disabled={isLoading}
         >
           <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-          {mt.refresh || 'Refresh'}
+          {t('matching.refresh') || 'Refresh'}
         </Button>
       </div>
 
@@ -87,10 +85,10 @@ export default function RecommendationsPage() {
         <div className="text-center py-16">
           <Sparkles className="mx-auto h-12 w-12 text-muted-foreground/50 mb-4" />
           <p className="text-muted-foreground max-w-md mx-auto">
-            {mt.noRecommendations || 'No recommendations available. Complete your profile to get personalized suggestions.'}
+            {t('matching.noRecommendations') || 'No recommendations available. Complete your profile to get personalized suggestions.'}
           </p>
           <Button className="mt-4" onClick={() => router.push('/profile')}>
-            {mt.completeProfile || 'Complete Your Profile'}
+            {t('matching.completeProfile') || 'Complete Your Profile'}
           </Button>
         </div>
       ) : (
@@ -127,7 +125,7 @@ export default function RecommendationsPage() {
                           <span className="text-lg font-bold">{scorePercent}%</span>
                         </div>
                       </div>
-                      <span className="text-xs text-muted-foreground mt-1">{mt.score || 'Match'}</span>
+                      <span className="text-xs text-muted-foreground mt-1">{t('matching.score') || 'Match'}</span>
                     </div>
 
                     {/* Content */}
@@ -158,21 +156,21 @@ export default function RecommendationsPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
                           <div className="flex justify-between text-xs mb-1">
-                            <span className="text-muted-foreground">{mt.skills || 'Skills'}</span>
+                            <span className="text-muted-foreground">{t('matching.skills') || 'Skills'}</span>
                             <span className="font-medium">{Math.round(rec.breakdown.skillsScore)}%</span>
                           </div>
                           <ScoreBar score={rec.breakdown.skillsScore} />
                         </div>
                         <div>
                           <div className="flex justify-between text-xs mb-1">
-                            <span className="text-muted-foreground">{mt.location || 'Location'}</span>
+                            <span className="text-muted-foreground">{t('matching.location') || 'Location'}</span>
                             <span className="font-medium">{Math.round(rec.breakdown.locationScore)}%</span>
                           </div>
                           <ScoreBar score={rec.breakdown.locationScore} />
                         </div>
                         <div>
                           <div className="flex justify-between text-xs mb-1">
-                            <span className="text-muted-foreground">{mt.domain || 'Domain'}</span>
+                            <span className="text-muted-foreground">{t('matching.domain') || 'Domain'}</span>
                             <span className="font-medium">{Math.round(rec.breakdown.domainScore)}%</span>
                           </div>
                           <ScoreBar score={rec.breakdown.domainScore} />
@@ -193,14 +191,14 @@ export default function RecommendationsPage() {
                           onClick={() => router.push(`/recommendations/${opportunity._id}`)}
                         >
                           <TrendingUp className="h-3.5 w-3.5" />
-                          {mt.viewDetail || 'View Detail'}
+                          {t('matching.viewDetail') || 'View Detail'}
                         </Button>
                         <Button
                           size="sm"
                           className="gap-1"
                           onClick={() => router.push(`/opportunities/${opportunity._id}`)}
                         >
-                          {mt.apply || 'Apply'}
+                          {t('matching.apply') || 'Apply'}
                           <ArrowRight className="h-3.5 w-3.5" />
                         </Button>
                       </div>

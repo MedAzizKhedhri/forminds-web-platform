@@ -72,7 +72,7 @@ export function PostFeed({
       <Card>
         <CardContent className="p-8 text-center">
           <p className="text-muted-foreground">
-            {t.feed?.noPosts || 'No posts yet'}
+            {t('feed.noPosts')}
           </p>
         </CardContent>
       </Card>
@@ -102,8 +102,8 @@ export function PostFeed({
             disabled={isLoading}
           >
             {isLoading
-              ? (t.common?.loading || 'Loading...')
-              : (t.feed?.loadMore || 'Load more')}
+              ? (t('common.loading'))
+              : (t('feed.loadMore'))}
           </Button>
         </div>
       )}

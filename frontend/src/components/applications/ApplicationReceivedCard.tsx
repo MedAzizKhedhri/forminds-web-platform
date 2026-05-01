@@ -85,7 +85,7 @@ export function ApplicationReceivedCard({
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
               <Calendar className="h-3 w-3 shrink-0" />
               <span>
-                {t.applications?.appliedOn ?? 'Applied on'} {appliedDate}
+                {t('applications.appliedOn')} {appliedDate}
               </span>
             </div>
           </div>
@@ -101,7 +101,7 @@ export function ApplicationReceivedCard({
 
         <div className="space-y-2">
           <label className="text-xs font-medium text-muted-foreground">
-            {t.applications?.changeStatus ?? 'Change status'}
+            {t('applications.changeStatus')}
           </label>
           <Select
             value={application.status}
@@ -115,7 +115,7 @@ export function ApplicationReceivedCard({
             <SelectContent>
               {APPLICATION_STATUSES.map((statusOption) => (
                 <SelectItem key={statusOption} value={statusOption}>
-                  {t.applications?.status?.[statusOption] ?? statusOption}
+                  {t(`applications.status_${statusOption}`)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -128,7 +128,7 @@ export function ApplicationReceivedCard({
             className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
           >
             <ExternalLink className="h-3.5 w-3.5" />
-            {t.applications?.viewProfile ?? 'View profile'}
+            {t('applications.viewProfile')}
           </Link>
         )}
       </CardContent>

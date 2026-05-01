@@ -56,9 +56,6 @@ export default function AdminEventsPage() {
   const [rejectTarget, setRejectTarget] = useState<string | null>(null);
   const [rejectionReason, setRejectionReason] = useState('');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-
-  const et = t.events || {};
-
   // Role guard
   useEffect(() => {
     if (!authLoading && user && user.role !== 'admin') {
@@ -83,10 +80,10 @@ export default function AdminEventsPage() {
     try {
       const res = await validateEvent(eventId, 'approved');
       if (res.success) {
-        toast({ title: t.admin?.eventApproved || 'Event approved successfully' });
+        toast({ title: t('admin.eventApproved') });
       }
     } catch {
-      toast({ title: t.common?.error || 'Action failed', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setActionLoading(null);
     }
@@ -104,11 +101,11 @@ export default function AdminEventsPage() {
     try {
       const res = await validateEvent(rejectTarget, 'rejected', rejectionReason || undefined);
       if (res.success) {
-        toast({ title: t.admin?.eventRejected || 'Event rejected' });
+        toast({ title: t('admin.eventRejected') });
         setRejectDialogOpen(false);
       }
     } catch {
-      toast({ title: t.common?.error || 'Action failed', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setActionLoading(null);
     }
@@ -123,8 +120,7 @@ export default function AdminEventsPage() {
   };
 
   const typeLabel = (type: string) => {
-    const types = (et.types || {}) as Record<string, string>;
-    return types[type] || type;
+    return t(`events.types.${type}`);
   };
 
   if (authLoading || !user || user.role !== 'admin') {
@@ -141,7 +137,7 @@ export default function AdminEventsPage() {
       <div className="flex items-center gap-3">
         <Calendar className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.admin?.pendingEvents || 'Pending Events'}
+          {t('admin.pendingEvents')}
         </h1>
       </div>
 
@@ -173,7 +169,7 @@ export default function AdminEventsPage() {
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
           <Inbox className="h-16 w-16 mb-4 opacity-50" />
           <p className="text-lg font-medium">
-            {t.admin?.noPendingEvents || 'No pending events'}
+            {t('admin.noPendingEvents')}
           </p>
           <p className="text-sm mt-1">
             All events have been reviewed
@@ -214,19 +210,19 @@ export default function AdminEventsPage() {
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="h-4 w-4" />
-                    {(et.capacity as string) || 'Capacity'}: {event.capacity}
+                    {t('events.capacity')}: {event.capacity}
                   </span>
                 </div>
 
                 {event.isOnline && (
                   <Badge variant="outline" className="text-xs">
-                    {(et.isOnline as string) || 'Online'}
+                    {t('events.isOnline')}
                   </Badge>
                 )}
 
                 <p className="text-sm">
                   <span className="text-muted-foreground">
-                    {(et.organizer as string) || 'Organizer'}:{' '}
+                    {t('events.organizer')}:{' '}
                   </span>
                   <span className="font-medium">{getOrganizerName(event)}</span>
                 </p>
@@ -240,7 +236,7 @@ export default function AdminEventsPage() {
                     disabled={actionLoading === event._id}
                   >
                     <CheckCircle className="h-4 w-4 mr-1" />
-                    {t.admin?.approve || 'Approve'}
+                    {t('admin.approve')}
                   </Button>
                   <Button
                     variant="outline"
@@ -250,7 +246,7 @@ export default function AdminEventsPage() {
                     disabled={actionLoading === event._id}
                   >
                     <XCircle className="h-4 w-4 mr-1" />
-                    {t.admin?.reject || 'Reject'}
+                    {t('admin.reject')}
                   </Button>
                 </div>
               </CardContent>
@@ -269,7 +265,7 @@ export default function AdminEventsPage() {
             disabled={currentPage <= 1}
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
-            {t.common?.back || 'Previous'}
+            {t('common.back')}
           </Button>
           <span className="text-sm text-muted-foreground">
             Page {currentPage} / {pagination.totalPages}
@@ -280,7 +276,7 @@ export default function AdminEventsPage() {
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage >= pagination.totalPages}
           >
-            {t.common?.next || 'Next'}
+            {t('common.next')}
             <ChevronRight className="h-4 w-4 ml-1" />
           </Button>
         </div>
@@ -291,7 +287,7 @@ export default function AdminEventsPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {t.admin?.rejectEvent || 'Reject Event'}
+              {t('admin.rejectEvent')}
             </AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you want to reject this event? The organizer will be notified.
@@ -300,26 +296,26 @@ export default function AdminEventsPage() {
           <div className="space-y-4 py-2">
             <div className="space-y-2">
               <label className="text-sm font-medium">
-                {t.admin?.rejectionReason || 'Rejection reason (optional)'}
+                {t('admin.rejectionReason')}
               </label>
               <Textarea
                 value={rejectionReason}
                 onChange={(e) => setRejectionReason(e.target.value)}
-                placeholder={t.admin?.rejectionReasonPlaceholder || 'Enter reason for rejection...'}
+                placeholder={t('admin.rejectionReasonPlaceholder')}
                 rows={3}
               />
             </div>
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={!!actionLoading}>
-              {t.common?.cancel || 'Cancel'}
+              {t('common.cancel')}
             </AlertDialogCancel>
             <Button
               variant="destructive"
               onClick={confirmReject}
               disabled={!!actionLoading}
             >
-              {actionLoading ? '...' : (t.admin?.reject || 'Reject')}
+              {actionLoading ? '...' : (t('admin.reject'))}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

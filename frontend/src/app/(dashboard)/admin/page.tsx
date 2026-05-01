@@ -60,35 +60,35 @@ export default function AdminDashboardPage() {
 
   const kpiCards = [
     {
-      label: t.admin?.totalUsers || 'Total Users',
+      label: t('admin.totalUsers'),
       value: stats?.totalUsers,
       icon: Users,
       color: 'text-blue-600',
       bg: 'bg-blue-50',
     },
     {
-      label: t.admin?.students || 'Students',
+      label: t('admin.students'),
       value: stats?.totalStudents,
       icon: GraduationCap,
       color: 'text-green-600',
       bg: 'bg-green-50',
     },
     {
-      label: t.admin?.recruiters || 'Organisations',
+      label: t('admin.recruiters'),
       value: stats?.totalRecruiters,
       icon: Building2,
       color: 'text-purple-600',
       bg: 'bg-purple-50',
     },
     {
-      label: t.admin?.suspended || 'Suspended',
+      label: t('admin.suspended'),
       value: stats?.suspendedUsers,
       icon: UserX,
       color: 'text-red-600',
       bg: 'bg-red-50',
     },
     {
-      label: t.admin?.pendingOpportunities || 'Pending Opportunities',
+      label: t('admin.pendingOpportunities'),
       value: stats?.pendingOpportunities,
       icon: Clock,
       color: 'text-orange-600',
@@ -96,28 +96,28 @@ export default function AdminDashboardPage() {
       href: '/admin/opportunities',
     },
     {
-      label: t.admin?.approvedOpportunities || 'Approved Opportunities',
+      label: t('admin.approvedOpportunities'),
       value: stats?.approvedOpportunities,
       icon: CheckCircle,
       color: 'text-green-600',
       bg: 'bg-green-50',
     },
     {
-      label: t.admin?.totalApplications || 'Total Applications',
+      label: t('admin.totalApplications'),
       value: stats?.totalApplications,
       icon: FileText,
       color: 'text-blue-600',
       bg: 'bg-blue-50',
     },
     {
-      label: t.admin?.newUsers30Days || 'New Users (30 days)',
+      label: t('admin.newUsers30Days'),
       value: stats?.newUsersLast30Days,
       icon: UserPlus,
       color: 'text-teal-600',
       bg: 'bg-teal-50',
     },
     {
-      label: t.admin?.pendingEvents || 'Pending Events',
+      label: t('admin.pendingEvents'),
       value: stats?.pendingEvents,
       icon: Calendar,
       color: 'text-amber-600',
@@ -128,35 +128,35 @@ export default function AdminDashboardPage() {
 
   const quickActions = [
     {
-      label: t.admin?.viewPendingOpportunities || 'View Pending Opportunities',
+      label: t('admin.viewPendingOpportunities'),
       href: '/admin/opportunities',
       icon: ClipboardList,
       color: 'text-orange-600',
       bg: 'bg-orange-50',
     },
     {
-      label: t.admin?.viewPendingEvents || 'View Pending Events',
+      label: t('admin.viewPendingEvents'),
       href: '/admin/events',
       icon: Calendar,
       color: 'text-amber-600',
       bg: 'bg-amber-50',
     },
     {
-      label: t.admin?.verifyRecruiters || 'Verify Organisations',
+      label: t('admin.verifyRecruiters'),
       href: '/admin/recruiters',
       icon: ShieldCheck,
       color: 'text-purple-600',
       bg: 'bg-purple-50',
     },
     {
-      label: t.admin?.manageUsers || 'Manage Users',
+      label: t('admin.manageUsers'),
       href: '/admin/users',
       icon: UserCog,
       color: 'text-blue-600',
       bg: 'bg-blue-50',
     },
     {
-      label: t.admin?.viewAuditLog || 'View Audit Log',
+      label: t('admin.viewAuditLog'),
       href: '/admin/audit-log',
       icon: ScrollText,
       color: 'text-gray-600',
@@ -169,7 +169,7 @@ export default function AdminDashboardPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">
-          {t.admin?.dashboard || 'Admin Dashboard'}
+          {t('admin.dashboard')}
         </h1>
         <p className="mt-1 text-muted-foreground">
           {'Platform overview and management'}
@@ -217,7 +217,7 @@ export default function AdminDashboardPage() {
       {/* Quick Actions */}
       <div>
         <h2 className="text-xl font-semibold mb-4">
-          {t.admin?.quickActions || 'Quick Actions'}
+          {t('admin.quickActions')}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickActions.map((action) => {

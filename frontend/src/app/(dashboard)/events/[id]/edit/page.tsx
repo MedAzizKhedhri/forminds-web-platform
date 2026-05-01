@@ -21,9 +21,6 @@ export default function EditEventPage() {
   const { t } = useLocale();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const et = t.events || {};
-
   // Only recruiters can edit events
   useEffect(() => {
     if (user && user.role !== 'recruiter') {
@@ -41,11 +38,11 @@ export default function EditEventPage() {
     try {
       const res = await updateEvent(id, data);
       if (res?.success) {
-        toast({ title: t.common?.success || 'Success', description: res.message });
+        toast({ title: t('common.success'), description: res.message });
         router.push(`/events/${id}`);
       }
     } catch {
-      toast({ title: t.common?.error || 'Error', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setIsSubmitting(false);
     }
@@ -64,12 +61,12 @@ export default function EditEventPage() {
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       <Button variant="ghost" onClick={() => router.back()} className="gap-2">
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       <div className="flex items-center gap-3">
         <Calendar className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold">{et.edit || 'Edit Event'}</h1>
+        <h1 className="text-2xl font-bold">{t('events.edit') || 'Edit Event'}</h1>
       </div>
 
       <Card>
@@ -93,8 +90,7 @@ export default function EditEventPage() {
             }}
             onSubmit={handleSubmit}
             isSubmitting={isSubmitting}
-            submitLabel={t.common?.save || 'Save'}
-            translations={et}
+            submitLabel={t('common.save')}
           />
         </CardContent>
       </Card>

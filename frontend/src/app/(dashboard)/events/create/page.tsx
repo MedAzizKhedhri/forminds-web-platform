@@ -19,9 +19,6 @@ export default function CreateEventPage() {
   const { t } = useLocale();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const et = t.events || {};
-
   // Only recruiters can create events
   useEffect(() => {
     if (!isAuthLoading && user && user.role !== 'recruiter') {
@@ -43,11 +40,11 @@ export default function CreateEventPage() {
       };
       const res = await createEvent(payload);
       if (res?.success) {
-        toast({ title: t.common?.success || 'Success', description: res.message });
+        toast({ title: t('common.success'), description: res.message });
         router.push('/events/mine');
       }
     } catch {
-      toast({ title: t.common?.error || 'Error', variant: 'destructive' });
+      toast({ title: t('common.error'), variant: 'destructive' });
     } finally {
       setIsSubmitting(false);
     }
@@ -57,24 +54,23 @@ export default function CreateEventPage() {
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       <Button variant="ghost" onClick={() => router.back()} className="gap-2">
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       <div className="flex items-center gap-3">
         <Calendar className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold">{et.create || 'Create Event'}</h1>
+        <h1 className="text-2xl font-bold">{t('events.create') || 'Create Event'}</h1>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>{et.create || 'New Event'}</CardTitle>
+          <CardTitle>{t('events.create') || 'New Event'}</CardTitle>
         </CardHeader>
         <CardContent>
           <EventForm
             onSubmit={handleSubmit}
             isSubmitting={isSubmitting}
-            submitLabel={et.create || 'Create Event'}
-            translations={et}
+            submitLabel={t('events.create')}
           />
         </CardContent>
       </Card>

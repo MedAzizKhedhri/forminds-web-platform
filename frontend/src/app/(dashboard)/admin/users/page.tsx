@@ -150,7 +150,7 @@ export default function AdminUsersPage() {
       <div className="flex items-center gap-3">
         <Users className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.admin?.usersManagement || 'Users Management'}
+          {t('admin.usersManagement')}
         </h1>
       </div>
 
@@ -167,7 +167,7 @@ export default function AdminUsersPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder={t.admin?.searchPlaceholder || 'Search by name or email...'}
+                  placeholder={t('admin.searchPlaceholder')}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   onKeyDown={handleSearchKeyDown}
@@ -177,10 +177,10 @@ export default function AdminUsersPage() {
             </div>
             <Select value={roleFilter} onValueChange={setRoleFilter}>
               <SelectTrigger className="w-full sm:w-[160px]">
-                <SelectValue placeholder={t.admin?.role || 'Role'} />
+                <SelectValue placeholder={t('admin.role')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t.admin?.allRoles || 'All Roles'}</SelectItem>
+                <SelectItem value="all">{t('admin.allRoles')}</SelectItem>
                 <SelectItem value="student">{'Student'}</SelectItem>
                 <SelectItem value="recruiter">{'Organisation'}</SelectItem>
                 <SelectItem value="admin">{'Admin'}</SelectItem>
@@ -188,17 +188,17 @@ export default function AdminUsersPage() {
             </Select>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-full sm:w-[160px]">
-                <SelectValue placeholder={t.admin?.status || 'Status'} />
+                <SelectValue placeholder={t('admin.status')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t.admin?.allStatuses || 'All Statuses'}</SelectItem>
-                <SelectItem value="active">{t.admin?.active || 'Active'}</SelectItem>
-                <SelectItem value="suspended">{t.admin?.suspendedStatus || 'Suspended'}</SelectItem>
+                <SelectItem value="all">{t('admin.allStatuses')}</SelectItem>
+                <SelectItem value="active">{t('admin.active')}</SelectItem>
+                <SelectItem value="suspended">{t('admin.suspendedStatus')}</SelectItem>
               </SelectContent>
             </Select>
             <Button onClick={handleSearch} variant="outline">
               <Search className="h-4 w-4 mr-2" />
-              {t.admin?.searchPlaceholder || 'Search'}
+              {t('admin.searchPlaceholder')}
             </Button>
           </div>
         </CardContent>
@@ -212,22 +212,22 @@ export default function AdminUsersPage() {
               <thead>
                 <tr className="border-b bg-muted/50">
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.name || 'Name'}
+                    {t('admin.name')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.email || 'Email'}
+                    {t('admin.email')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.role || 'Role'}
+                    {t('admin.role')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.status || 'Status'}
+                    {t('admin.status')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.joined || 'Joined'}
+                    {t('admin.joined')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.admin?.actions || 'Actions'}
+                    {t('admin.actions')}
                   </th>
                 </tr>
               </thead>
@@ -247,7 +247,7 @@ export default function AdminUsersPage() {
                   <tr>
                     <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
                       <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>{t.admin?.noUsers || 'No users found'}</p>
+                      <p>{t('admin.noUsers')}</p>
                     </td>
                   </tr>
                 ) : (
@@ -282,8 +282,8 @@ export default function AdminUsersPage() {
                           }
                         >
                           {u.isActive
-                            ? (t.admin?.active || 'Active')
-                            : (t.admin?.suspendedStatus || 'Suspended')}
+                            ? (t('admin.active'))
+                            : (t('admin.suspendedStatus'))}
                         </Badge>
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -298,7 +298,7 @@ export default function AdminUsersPage() {
                               onClick={() => handleSuspend(u._id, `${u.firstName} ${u.lastName}`)}
                               disabled={actionLoading}
                             >
-                              {t.admin?.suspend || 'Suspend'}
+                              {t('admin.suspend')}
                             </Button>
                           ) : (
                             <Button
@@ -308,7 +308,7 @@ export default function AdminUsersPage() {
                               onClick={() => handleReactivate(u._id)}
                               disabled={actionLoading}
                             >
-                              {t.admin?.reactivate || 'Reactivate'}
+                              {t('admin.reactivate')}
                             </Button>
                           )
                         )}
@@ -354,22 +354,21 @@ export default function AdminUsersPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {t.admin?.suspendUser || 'Suspend User'}
+              {t('admin.suspendUser')}
             </AlertDialogTitle>
             <AlertDialogDescription>
-              {t.admin?.suspendConfirm ||
-                `Are you sure you want to suspend ${suspendTarget?.name}? They will not be able to access the platform.`}
+              {t('admin.suspendConfirm')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-4 py-2">
             <div className="space-y-2">
               <label className="text-sm font-medium">
-                {t.admin?.suspendReason || 'Reason (optional)'}
+                {t('admin.suspendReason')}
               </label>
               <Textarea
                 value={suspendReason}
                 onChange={(e) => setSuspendReason(e.target.value)}
-                placeholder={t.admin?.suspendReasonPlaceholder || 'Enter reason for suspension...'}
+                placeholder={t('admin.suspendReasonPlaceholder')}
                 rows={3}
               />
             </div>
@@ -385,7 +384,7 @@ export default function AdminUsersPage() {
             >
               {actionLoading
                 ? ('Suspending...')
-                : (t.admin?.suspend || 'Suspend')}
+                : (t('admin.suspend'))}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

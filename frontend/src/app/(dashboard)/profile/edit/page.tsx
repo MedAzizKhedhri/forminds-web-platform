@@ -21,7 +21,7 @@ export default function ProfileEditPage() {
           </Link>
         </Button>
         <h1 className="text-2xl font-bold">
-          {t.profile?.editProfile || 'Edit Profile'}
+          {t('profile.editProfile')}
         </h1>
       </div>
 

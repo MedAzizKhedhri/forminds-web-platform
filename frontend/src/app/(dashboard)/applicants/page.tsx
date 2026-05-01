@@ -136,7 +136,7 @@ export default function ApplicantsPage() {
       try {
         await updateApplicationStatus(applicationId, status);
         toast({
-          title: t.common?.success || 'Success',
+          title: t('common.success'),
           description: 'Application status updated.',
         });
         if (selectedApplication?._id === applicationId) {
@@ -146,7 +146,7 @@ export default function ApplicantsPage() {
       } catch {
         toast({
           variant: 'destructive',
-          title: t.common?.error || 'Error',
+          title: t('common.error'),
           description: 'Failed to update application status.',
         });
       }
@@ -171,11 +171,11 @@ export default function ApplicantsPage() {
         <div className="flex items-center gap-3">
           <Users className="h-7 w-7 text-primary" />
           <h1 className="text-2xl font-bold tracking-tight">
-            {t.applicants?.title || 'Applicants'}
+            {t('applicants.title')}
           </h1>
         </div>
         <p className="text-sm text-muted-foreground mt-1">
-          {t.applicants?.subtitle || 'Review and manage applicants for your job postings.'}
+          {t('applicants.subtitle')}
         </p>
       </div>
 
@@ -187,8 +187,8 @@ export default function ApplicantsPage() {
               ? allCount
               : (statusCounts[tab] ?? 0);
             const label = tab === 'all'
-              ? (t.applicants?.all || 'All')
-              : (t.applications?.status?.[tab] ?? tab);
+              ? (t('applicants.all'))
+              : (t(`applications.status_${tab}`));
             return (
               <TabsTrigger key={tab} value={tab}>
                 {label} ({count})
@@ -203,7 +203,7 @@ export default function ApplicantsPage() {
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder={t.applicants?.searchPlaceholder || 'Search by name or email...'}
+            placeholder={t('applicants.searchPlaceholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={handleSearchKeyDown}
@@ -212,7 +212,7 @@ export default function ApplicantsPage() {
         </div>
         <Button onClick={handleSearch} variant="outline">
           <Search className="h-4 w-4 mr-2" />
-          {t.common?.search || 'Search'}
+          {t('common.search')}
         </Button>
       </div>
 
@@ -224,19 +224,19 @@ export default function ApplicantsPage() {
               <thead>
                 <tr className="border-b bg-muted/50">
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground w-12">
-                    {t.applicants?.no || 'NO'}
+                    {t('applicants.no')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.applicants?.candidate || 'CANDIDATE'}
+                    {t('applicants.candidate')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground hidden md:table-cell">
-                    {t.applicants?.opportunity || 'OPPORTUNITY'}
+                    {t('applicants.opportunity')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground hidden lg:table-cell">
-                    {t.applicants?.coverLetter || 'COVER LETTER'}
+                    {t('applicants.coverLetter')}
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
-                    {t.applicants?.statusCol || 'STATUS'}
+                    {t('applicants.statusCol')}
                   </th>
                 </tr>
               </thead>
@@ -263,7 +263,7 @@ export default function ApplicantsPage() {
                   <tr>
                     <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground">
                       <Inbox className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>{t.applicants?.noApplicants || 'No applicants found'}</p>
+                      <p>{t('applicants.noApplicants')}</p>
                     </td>
                   </tr>
                 ) : (
@@ -341,7 +341,7 @@ export default function ApplicantsPage() {
             disabled={currentPage <= 1}
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
-            {t.common?.back || 'Previous'}
+            {t('common.back')}
           </Button>
           <span className="text-sm text-muted-foreground">
             Page {currentPage} / {totalPages}
@@ -352,7 +352,7 @@ export default function ApplicantsPage() {
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage >= totalPages}
           >
-            {t.common?.next || 'Next'}
+            {t('common.next')}
             <ChevronRight className="h-4 w-4 ml-1" />
           </Button>
         </div>
@@ -405,7 +405,7 @@ export default function ApplicantsPage() {
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Calendar className="h-4 w-4" />
-                      <span>{t.applications?.appliedOn || 'Applied on'} {appliedDate}</span>
+                      <span>{t('applications.appliedOn')} {appliedDate}</span>
                     </div>
                     {oppTitle && (
                       <p className="text-sm font-medium text-muted-foreground pl-6">
@@ -419,7 +419,7 @@ export default function ApplicantsPage() {
                   {/* Status changer */}
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
-                      {t.applications?.changeStatus || 'Change status'}
+                      {t('applications.changeStatus')}
                     </label>
                     <Select
                       value={selectedApplication.status}
@@ -433,7 +433,7 @@ export default function ApplicantsPage() {
                       <SelectContent>
                         {APPLICATION_STATUSES.map((s) => (
                           <SelectItem key={s} value={s}>
-                            {t.applications?.status?.[s] ?? s}
+                            {t(`applications.status_${s}`)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -445,10 +445,10 @@ export default function ApplicantsPage() {
                   {/* Cover letter */}
                   <div className="space-y-2">
                     <h3 className="text-sm font-medium">
-                      {t.opportunities?.coverLetter || 'Cover Letter'}
+                      {t('opportunities.coverLetter')}
                     </h3>
                     <p className="text-sm text-muted-foreground whitespace-pre-wrap rounded-lg bg-muted/50 p-3">
-                      {selectedApplication.coverLetter || (t.applicants?.noCoverLetter || 'No cover letter provided.')}
+                      {selectedApplication.coverLetter || (t('applicants.noCoverLetter'))}
                     </p>
                   </div>
 
@@ -460,7 +460,7 @@ export default function ApplicantsPage() {
                       <Button variant="outline" size="sm" asChild>
                         <Link href={`/p/${student.username}`}>
                           <ExternalLink className="h-4 w-4 mr-1" />
-                          {t.applications?.viewProfile || 'View Profile'}
+                          {t('applications.viewProfile')}
                         </Link>
                       </Button>
                     )}

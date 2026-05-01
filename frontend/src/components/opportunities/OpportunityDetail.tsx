@@ -41,9 +41,9 @@ export function OpportunityDetail({
   const { t } = useLocale();
 
   const typeLabel: Record<Opportunity['type'], string> = {
-    stage: t.opportunities?.stage || 'Internship',
-    emploi: t.opportunities?.emploi || 'Employment',
-    benevolat: t.opportunities?.benevolat || 'Volunteering',
+    stage: t('opportunities.stage'),
+    emploi: t('opportunities.emploi'),
+    benevolat: t('opportunities.benevolat'),
   };
 
   const recruiter =
@@ -95,7 +95,7 @@ export function OpportunityDetail({
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Tag className="h-4 w-4 shrink-0" />
               <span>
-                {t.opportunities?.domain || 'Domain'}: {opportunity.domain}
+                {t('opportunities.domain')}: {opportunity.domain}
               </span>
             </div>
           )}
@@ -104,7 +104,7 @@ export function OpportunityDetail({
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar className="h-4 w-4 shrink-0" />
               <span>
-                {t.opportunities?.deadline || 'Deadline'}:{' '}
+                {t('opportunities.deadline')}:{' '}
                 {new Date(opportunity.deadline).toLocaleDateString()}
               </span>
             </div>
@@ -123,7 +123,7 @@ export function OpportunityDetail({
         {/* Description */}
         <div className="space-y-2">
           <h3 className="font-semibold">
-            {t.opportunities?.description || 'Description'}
+            {t('opportunities.description')}
           </h3>
           <p className="text-sm whitespace-pre-wrap">{opportunity.description}</p>
         </div>
@@ -132,7 +132,7 @@ export function OpportunityDetail({
         {opportunity.skills && opportunity.skills.length > 0 && (
           <div className="space-y-2">
             <h3 className="font-semibold">
-              {t.opportunities?.skills || 'Required skills'}
+              {t('opportunities.skills')}
             </h3>
             <div className="flex flex-wrap gap-2">
               {opportunity.skills.map((skill, i) => (
@@ -148,7 +148,7 @@ export function OpportunityDetail({
         {opportunity.requirements && (
           <div className="space-y-2">
             <h3 className="font-semibold">
-              {t.opportunities?.requirements || 'Requirements'}
+              {t('opportunities.requirements')}
             </h3>
             <p className="text-sm whitespace-pre-wrap">{opportunity.requirements}</p>
           </div>
@@ -159,19 +159,19 @@ export function OpportunityDetail({
           {/* Student view */}
           {userRole === 'student' && !isClosed && !isDeadlinePassed && !hasApplied && (
             <Button onClick={onApply}>
-              {t.opportunities?.apply || 'Apply'}
+              {t('opportunities.apply')}
             </Button>
           )}
 
           {userRole === 'student' && hasApplied && (
             <Badge variant="secondary" className="text-sm py-1.5 px-3">
-              {t.opportunities?.alreadyApplied || 'Already applied'}
+              {t('opportunities.alreadyApplied')}
             </Badge>
           )}
 
           {userRole === 'student' && (isClosed || isDeadlinePassed) && !hasApplied && (
             <Badge variant="outline" className="text-sm py-1.5 px-3 bg-gray-100 text-gray-600">
-              {t.opportunities?.closed || 'Closed'}
+              {t('opportunities.closed')}
             </Badge>
           )}
 
@@ -179,10 +179,10 @@ export function OpportunityDetail({
           {isOwner && !isClosed && (
             <>
               <Button variant="outline" onClick={onEdit}>
-                {t.opportunities?.edit || 'Edit'}
+                {t('opportunities.edit')}
               </Button>
               <Button variant="destructive" onClick={onClose}>
-                {t.opportunities?.close || 'Close opportunity'}
+                {t('opportunities.close')}
               </Button>
             </>
           )}
@@ -194,7 +194,7 @@ export function OpportunityDetail({
               </Button>
               <Button variant="destructive" onClick={onDelete} className="gap-1">
                 <Trash2 className="h-4 w-4" />
-                {((t.opportunities as any)?.delete) || 'Delete'}
+                {t('opportunities.delete')}
               </Button>
             </>
           )}
@@ -202,7 +202,7 @@ export function OpportunityDetail({
           {isOwner && !isClosed && (
             <Button variant="destructive" size="sm" onClick={onDelete} className="gap-1">
               <Trash2 className="h-4 w-4" />
-              {((t.opportunities as any)?.delete) || 'Delete'}
+              {t('opportunities.delete')}
             </Button>
           )}
         </div>

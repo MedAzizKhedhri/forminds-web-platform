@@ -61,7 +61,7 @@ export default function ApplicationsPage() {
       <div className="flex items-center gap-3">
         <FileText className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.applications?.title ?? 'My Applications'}
+          {t('applications.title')}
         </h1>
       </div>
 
@@ -75,7 +75,7 @@ export default function ApplicationsPage() {
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
           <Inbox className="h-12 w-12 mb-4 opacity-50" />
           <p className="text-sm">
-            {t.applications?.noApplications ?? 'No applications'}
+            {t('applications.noApplications')}
           </p>
         </div>
       ) : (
@@ -98,7 +98,7 @@ export default function ApplicationsPage() {
                 disabled={page <= 1}
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
-                {t.common?.back ?? 'Back'}
+                {t('common.back')}
               </Button>
               <span className="text-sm text-muted-foreground">
                 {page} / {totalPages}
@@ -109,7 +109,7 @@ export default function ApplicationsPage() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
               >
-                {t.common?.next ?? 'Next'}
+                {t('common.next')}
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>

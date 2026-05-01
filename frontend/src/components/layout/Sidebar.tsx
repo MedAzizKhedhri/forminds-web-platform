@@ -59,12 +59,12 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       items: [
         {
           href: '/dashboard',
-          label: t.nav?.dashboard || 'Dashboard',
+          label: t('nav.dashboard'),
           icon: LayoutDashboard,
         },
         {
           href: '/feed',
-          label: t.nav?.feed || 'Feed',
+          label: t('nav.feed'),
           icon: MessageSquare,
         },
       ],
@@ -74,13 +74,13 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       items: [
         {
           href: '/network',
-          label: t.nav?.network || 'Network',
+          label: t('nav.network'),
           icon: Users,
           roles: ['student', 'recruiter'],
         },
         {
           href: '/directory',
-          label: t.nav?.directory || 'Directory',
+          label: t('nav.directory'),
           icon: Search,
         },
       ],
@@ -90,18 +90,18 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       items: [
         {
           href: '/events',
-          label: t.nav?.events || 'Events',
+          label: t('nav.events'),
           icon: Calendar,
         },
         {
           href: '/events/mine',
-          label: t.nav?.myEvents || 'My Events',
+          label: t('nav.myEvents'),
           icon: Calendar,
           roles: ['recruiter'],
         },
         {
           href: '/events/my-tickets',
-          label: t.nav?.myTickets || 'My Tickets',
+          label: t('nav.myTickets'),
           icon: Ticket,
           roles: ['student', 'recruiter'],
         },
@@ -112,30 +112,30 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       items: [
         {
           href: '/recommendations',
-          label: t.nav?.recommendations || 'Recommendations',
+          label: t('nav.recommendations'),
           icon: Sparkles,
           roles: ['student'],
         },
         {
           href: '/opportunities',
-          label: t.nav?.opportunities || 'Opportunities',
+          label: t('nav.opportunities'),
           icon: Briefcase,
         },
         {
           href: '/opportunities/mine',
-          label: t.nav?.myOpportunities || 'My Opportunities',
+          label: t('nav.myOpportunities'),
           icon: ClipboardList,
           roles: ['recruiter'],
         },
         {
           href: '/applicants',
-          label: t.nav?.applicants || 'Applicants',
+          label: t('nav.applicants'),
           icon: Users,
           roles: ['recruiter'],
         },
         {
           href: '/applications',
-          label: t.nav?.applications || 'My Applications',
+          label: t('nav.applications'),
           icon: FileText,
           roles: ['student'],
         },
@@ -146,18 +146,18 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       items: [
         {
           href: '/profile',
-          label: t.nav?.profile || 'Profile',
+          label: t('nav.profile'),
           icon: User,
         },
         {
           href: '/projects',
-          label: t.profile?.projects || 'My Projects',
+          label: t('profile.projects'),
           icon: FolderOpen,
           roles: ['student'],
         },
         {
           href: '/settings',
-          label: t.nav?.settings || 'Settings',
+          label: t('nav.settings'),
           icon: Settings,
         },
       ],
@@ -167,37 +167,37 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       items: [
         {
           href: '/admin',
-          label: t.nav?.adminDashboard || 'Admin Dashboard',
+          label: t('nav.adminDashboard'),
           icon: Shield,
           roles: ['admin'],
         },
         {
           href: '/admin/opportunities',
-          label: t.nav?.adminOpportunities || 'Pending Opportunities',
+          label: t('nav.adminOpportunities'),
           icon: ClipboardCheck,
           roles: ['admin'],
         },
         {
           href: '/admin/events',
-          label: t.nav?.adminEvents || 'Pending Events',
+          label: t('nav.adminEvents'),
           icon: Calendar,
           roles: ['admin'],
         },
         {
           href: '/admin/recruiters',
-          label: t.nav?.adminRecruiters || 'Verify Organisations',
+          label: t('nav.adminRecruiters'),
           icon: UserCheck,
           roles: ['admin'],
         },
         {
           href: '/admin/users',
-          label: t.nav?.adminUsers || 'Users Management',
+          label: t('nav.adminUsers'),
           icon: Users,
           roles: ['admin'],
         },
         {
           href: '/admin/audit-log',
-          label: t.nav?.adminAuditLog || 'Audit Log',
+          label: t('nav.adminAuditLog'),
           icon: ScrollText,
           roles: ['admin'],
         },

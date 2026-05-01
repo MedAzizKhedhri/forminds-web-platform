@@ -132,9 +132,9 @@ export default function AdminOpportunitiesPage() {
 
   const typeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      stage: t.opportunities?.stage || 'Internship',
-      emploi: t.opportunities?.emploi || 'Job',
-      benevolat: t.opportunities?.benevolat || 'Volunteering',
+      stage: t('opportunities.stage'),
+      emploi: t('opportunities.emploi'),
+      benevolat: t('opportunities.benevolat'),
     };
     return labels[type] || type;
   };
@@ -153,7 +153,7 @@ export default function AdminOpportunitiesPage() {
       <div className="flex items-center gap-3">
         <ClipboardList className="h-7 w-7 text-primary" />
         <h1 className="text-2xl font-bold tracking-tight">
-          {t.admin?.pendingOpportunities || 'Pending Opportunities'}
+          {t('admin.pendingOpportunities')}
         </h1>
       </div>
 
@@ -185,7 +185,7 @@ export default function AdminOpportunitiesPage() {
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
           <Inbox className="h-16 w-16 mb-4 opacity-50" />
           <p className="text-lg font-medium">
-            {t.admin?.noPendingOpportunities || 'No pending opportunities'}
+            {t('admin.noPendingOpportunities')}
           </p>
           <p className="text-sm mt-1">
             {'All opportunities have been reviewed'}
@@ -256,7 +256,7 @@ export default function AdminOpportunitiesPage() {
                     disabled={actionLoading === opp._id}
                   >
                     <CheckCircle className="h-4 w-4 mr-1" />
-                    {t.admin?.approve || 'Approve'}
+                    {t('admin.approve')}
                   </Button>
                   <Button
                     variant="outline"
@@ -266,7 +266,7 @@ export default function AdminOpportunitiesPage() {
                     disabled={actionLoading === opp._id}
                   >
                     <XCircle className="h-4 w-4 mr-1" />
-                    {t.admin?.reject || 'Reject'}
+                    {t('admin.reject')}
                   </Button>
                 </div>
               </CardContent>
@@ -307,7 +307,7 @@ export default function AdminOpportunitiesPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {t.admin?.rejectOpportunity || 'Reject Opportunity'}
+              {t('admin.rejectOpportunity')}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {'Are you sure you want to reject this opportunity? The recruiter will be notified.'}
@@ -316,12 +316,12 @@ export default function AdminOpportunitiesPage() {
           <div className="space-y-4 py-2">
             <div className="space-y-2">
               <label className="text-sm font-medium">
-                {t.admin?.rejectionReason || 'Rejection reason (optional)'}
+                {t('admin.rejectionReason')}
               </label>
               <Textarea
                 value={rejectionReason}
                 onChange={(e) => setRejectionReason(e.target.value)}
-                placeholder={t.admin?.rejectionReasonPlaceholder || 'Enter reason for rejection...'}
+                placeholder={t('admin.rejectionReasonPlaceholder')}
                 rows={3}
               />
             </div>
@@ -337,7 +337,7 @@ export default function AdminOpportunitiesPage() {
             >
               {actionLoading
                 ? ('Rejecting...')
-                : (t.admin?.reject || 'Reject')}
+                : (t('admin.reject'))}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

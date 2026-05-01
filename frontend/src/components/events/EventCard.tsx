@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { Calendar, MapPin, Users, Clock, Globe, Image as ImageIcon } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useLocale } from '@/components/layout/LanguageSwitcher';
 import type { Event, User } from '@/types';
 
 const SERVER_URL = (process.env.NEXT_PUBLIC_API_URL || '/api').replace(/\/api$/, '');
 
 interface EventCardProps {
   event: Event;
-  translations?: Record<string, string | Record<string, string>>;
 }
 
 const typeColors: Record<string, string> = {
@@ -21,12 +21,14 @@ const typeColors: Record<string, string> = {
   career_fair: 'bg-pink-100 text-pink-800',
 };
 
-export default function EventCard({ event, translations }: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
+  const { t } = useLocale();
   const organizer = typeof event.organizerId === 'object' ? (event.organizerId as User) : null;
   const spotsLeft = event.capacity - event.registeredCount;
   const isFull = spotsLeft <= 0;
-  const typeLabels = (translations?.types || {}) as Record<string, string>;
-  const statusLabels = (translations?.status || {}) as Record<string, string>;
+  
+  const typeLabels = (t('events.types', { returnObjects: true }) || {}) as Record<string, string>;
+  const statusLabels = (t('events.status', { returnObjects: true }) || {}) as Record<string, string>;
 
   return (
     <Link href={`/events/${event._id}`}>
@@ -86,18 +88,18 @@ export default function EventCard({ event, translations }: EventCardProps) {
             </div>
             {isFull ? (
               <Badge variant="destructive" className="text-xs">
-                {translations?.eventFull as string || 'Full'}
+                {t('events.eventFull')}
               </Badge>
             ) : (
               <span className="text-xs text-muted-foreground">
-                {spotsLeft} {translations?.spotsLeft as string || 'spots left'}
+                {spotsLeft} {t('events.spotsLeft')}
               </span>
             )}
           </div>
 
           {organizer && (
             <p className="text-xs text-muted-foreground truncate">
-              {translations?.organizer as string || 'By'} {organizer.firstName} {organizer.lastName}
+              {t('events.organizer')} {organizer.firstName} {organizer.lastName}
             </p>
           )}
         </CardContent>

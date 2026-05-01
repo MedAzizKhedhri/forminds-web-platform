@@ -115,10 +115,10 @@ export default function DashboardPage() {
           </Avatar>
           <div className="flex-1">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-              {t.dashboard?.welcome || 'Welcome'}, {user?.firstName}!
+              {t('dashboard.welcome')}, {user?.firstName}!
             </h1>
             <p className="mt-1 text-white/70 text-sm sm:text-base">
-              {t.dashboard?.completeProfile || 'Complete your profile to increase your visibility'}
+              {t('dashboard.completeProfile')}
             </p>
           </div>
           <div className="hidden sm:flex items-center gap-2">
@@ -140,7 +140,7 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">
-                  {t.profile?.profileCompletion || 'Profile completion'}
+                  {t('profile.profileCompletion')}
                 </span>
               </div>
               <span className="text-sm font-semibold text-primary">
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                   <Users className="h-5 w-5 text-orange-600" />
                 </div>
                 <CardTitle className="text-base font-semibold">
-                  {t.dashboard?.pendingConnections || 'Pending requests'}
+                  {t('dashboard.pendingConnections')}
                 </CardTitle>
               </div>
               {!widgetsLoading && pendingCount > 0 && (
@@ -190,7 +190,7 @@ export default function DashboardPage() {
             </CardDescription>
             <Button asChild variant="outline" className="w-full" size="sm">
               <Link href="/network">
-                {t.nav?.network || 'Network'}
+                {t('nav.network')}
                 <ArrowRight className="ml-2 h-3.5 w-3.5" />
               </Link>
             </Button>
@@ -205,7 +205,7 @@ export default function DashboardPage() {
                 <MessageSquare className="h-5 w-5 text-blue-600" />
               </div>
               <CardTitle className="text-base font-semibold">
-                {t.dashboard?.recentPosts || 'Recent posts'}
+                {t('dashboard.recentPosts')}
               </CardTitle>
             </div>
           </CardHeader>
@@ -230,7 +230,7 @@ export default function DashboardPage() {
             </CardDescription>
             <Button asChild variant="outline" className="w-full" size="sm">
               <Link href="/feed">
-                {t.nav?.feed || 'Feed'}
+                {t('nav.feed')}
                 <ArrowRight className="ml-2 h-3.5 w-3.5" />
               </Link>
             </Button>
@@ -245,7 +245,7 @@ export default function DashboardPage() {
                 <Briefcase className="h-5 w-5 text-emerald-600" />
               </div>
               <CardTitle className="text-base font-semibold">
-                {t.nav?.opportunities || 'Opportunities'}
+                {t('nav.opportunities')}
               </CardTitle>
             </div>
           </CardHeader>
@@ -257,7 +257,7 @@ export default function DashboardPage() {
             </CardDescription>
             <Button asChild variant="outline" className="w-full" size="sm">
               <Link href={user?.role === 'recruiter' ? '/opportunities/mine' : '/opportunities'}>
-                {t.nav?.opportunities || 'Opportunities'}
+                {t('nav.opportunities')}
                 <ArrowRight className="ml-2 h-3.5 w-3.5" />
               </Link>
             </Button>
@@ -273,7 +273,7 @@ export default function DashboardPage() {
                   <FileText className="h-5 w-5 text-violet-600" />
                 </div>
                 <CardTitle className="text-base font-semibold">
-                  {t.dashboard?.recentApplications || 'Recent applications'}
+                  {t('dashboard.recentApplications')}
                 </CardTitle>
               </div>
             </CardHeader>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                               app.status === 'rejected' ? 'text-red-600 font-medium' :
                                 'text-yellow-600 font-medium'
                           }>
-                            {t.applications?.status?.[app.status] || app.status}
+                            {t(`applications.status_${app.status}`)}
                           </span>
                         </p>
                       );
@@ -308,7 +308,7 @@ export default function DashboardPage() {
               </CardDescription>
               <Button asChild variant="outline" className="w-full" size="sm">
                 <Link href="/applications">
-                  {t.nav?.applications || 'My Applications'}
+                  {t('nav.applications')}
                   <ArrowRight className="ml-2 h-3.5 w-3.5" />
                 </Link>
               </Button>
@@ -328,7 +328,7 @@ export default function DashboardPage() {
                   <Pencil className="h-4 w-4 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium">{t.profile?.editProfile || 'Edit Profile'}</p>
+                  <p className="text-sm font-medium">{t('profile.editProfile')}</p>
                   <p className="text-xs text-muted-foreground truncate">Update your info</p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -343,7 +343,7 @@ export default function DashboardPage() {
                   <Eye className="h-4 w-4 text-blue-600" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium">{t.profile?.publicProfile || 'Public Profile'}</p>
+                  <p className="text-sm font-medium">{t('profile.publicProfile')}</p>
                   <p className="text-xs text-muted-foreground truncate">See how others view you</p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -358,7 +358,7 @@ export default function DashboardPage() {
                   <Settings className="h-4 w-4 text-muted-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium">{t.nav?.settings || 'Settings'}</p>
+                  <p className="text-sm font-medium">{t('nav.settings')}</p>
                   <p className="text-xs text-muted-foreground truncate">Password & security</p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -374,7 +374,7 @@ export default function DashboardPage() {
                     <FolderOpen className="h-4 w-4 text-emerald-600" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium">{t.profile?.projects || 'My Projects'}</p>
+                    <p className="text-sm font-medium">{t('profile.projects')}</p>
                     <p className="text-xs text-muted-foreground truncate">Showcase your work</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />

@@ -15,9 +15,7 @@ export default function MyTicketsPage() {
   const { registrations, total, totalPages, isLoading, getUserRegistrations } = useEvents();
   const { t } = useLocale();
   const [page, setPage] = useState(1);
-
-  const et = t.events || {};
-  const typeLabels = (et.types || {}) as Record<string, string>;
+  const typeLabels = (t('events.types', { returnObjects: true }) || {}) as Record<string, string>;
 
   useEffect(() => {
     getUserRegistrations(page);
@@ -27,7 +25,7 @@ export default function MyTicketsPage() {
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="flex items-center gap-3">
         <Ticket className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold">{et.myTickets || 'My Tickets'}</h1>
+        <h1 className="text-2xl font-bold">{t('events.myTickets') || 'My Tickets'}</h1>
       </div>
 
       {isLoading ? (
@@ -39,7 +37,7 @@ export default function MyTicketsPage() {
       ) : !registrations || registrations.length === 0 ? (
         <div className="text-center py-16">
           <Ticket className="mx-auto h-12 w-12 text-muted-foreground/50 mb-4" />
-          <p className="text-muted-foreground">{et.noTickets || 'No tickets yet'}</p>
+          <p className="text-muted-foreground">{t('events.noTickets') || 'No tickets yet'}</p>
         </div>
       ) : (
         <>
@@ -66,12 +64,12 @@ export default function MyTicketsPage() {
                           {reg.checkedIn ? (
                             <Badge className="bg-green-100 text-green-800 gap-1">
                               <CheckCircle2 className="h-3 w-3" />
-                              {et.checkedIn || 'Checked In'}
+                              {t('events.checkedIn') || 'Checked In'}
                             </Badge>
                           ) : (
                             <Badge variant="secondary" className="gap-1">
                               <XCircle className="h-3 w-3" />
-                              {et.notCheckedIn || 'Not Checked In'}
+                              {t('events.notCheckedIn') || 'Not Checked In'}
                             </Badge>
                           )}
                         </div>
@@ -92,9 +90,10 @@ export default function MyTicketsPage() {
                           </Badge>
                           {event.status === 'cancelled' && (
                             <Badge variant="destructive">
-                              {(et.status as Record<string, string>)?.cancelled || 'Cancelled'}
+                              {t('events.status.cancelled')}
                             </Badge>
                           )}
+
                         </div>
                         <h3 className="text-lg font-semibold">{event.title}</h3>
                         <div className="space-y-1 text-sm text-muted-foreground">
@@ -122,13 +121,13 @@ export default function MyTicketsPage() {
           {totalPages > 1 && (
             <div className="flex justify-center gap-2">
               <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>
-                {t.common?.back || 'Previous'}
+                {t('common.back')}
               </Button>
               <span className="flex items-center px-3 text-sm text-muted-foreground">
                 {page} / {totalPages} ({total})
               </span>
               <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>
-                {t.common?.next || 'Next'}
+                {t('common.next')}
               </Button>
             </div>
           )}

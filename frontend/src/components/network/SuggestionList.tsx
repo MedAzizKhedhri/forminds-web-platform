@@ -91,7 +91,7 @@ function SuggestionCard({
           ) : (
             <UserPlus className="mr-1 h-4 w-4" />
           )}
-          {t.network?.connect || 'Connect'}
+          {t('network.connect')}
         </Button>
       </CardContent>
     </Card>
@@ -113,7 +113,7 @@ export function SuggestionList({
     return (
       <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
         <Lightbulb className="h-12 w-12 mb-4 opacity-50" />
-        <p className="text-sm">{t.network?.noSuggestions || 'No suggestions available'}</p>
+        <p className="text-sm">{t('network.noSuggestions')}</p>
       </div>
     );
   }

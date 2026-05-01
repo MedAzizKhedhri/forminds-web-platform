@@ -25,8 +25,6 @@ export default function EventsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
-
-  const et = t.events || {};
   const canCreate = user?.role === 'recruiter'; // Only recruiters can create events
 
   useEffect(() => {
@@ -44,13 +42,13 @@ export default function EventsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Calendar className="h-7 w-7 text-primary" />
-          <h1 className="text-2xl font-bold tracking-tight">{et.title || 'Events'}</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('events.title') || 'Events'}</h1>
         </div>
         {canCreate && (
           <Link href="/events/create">
             <Button className="gap-2">
               <Plus className="h-4 w-4" />
-              {et.create || 'Create Event'}
+              {t('events.create') || 'Create Event'}
             </Button>
           </Link>
         )}
@@ -61,7 +59,7 @@ export default function EventsPage() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder={t.common?.search || 'Search...'}
+            placeholder={t('common.search')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -70,18 +68,18 @@ export default function EventsPage() {
         </div>
         <Select value={typeFilter} onValueChange={(v) => { setTypeFilter(v === 'all' ? '' : v); setPage(1); }}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={et.type || 'Type'} />
+            <SelectValue placeholder={t('events.type') || 'Type'} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t.common?.noResults ? 'All' : 'All'}</SelectItem>
+            <SelectItem value="all">{t('common.search')}</SelectItem>
             {['conference', 'workshop', 'networking', 'webinar', 'career_fair'].map((type) => (
               <SelectItem key={type} value={type}>
-                {(et.types as Record<string, string>)?.[type] || type}
+                {t(`events.types.${type}`)}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
-        <Button onClick={handleSearch}>{t.common?.search || 'Search'}</Button>
+        <Button onClick={handleSearch}>{t('common.search')}</Button>
       </div>
 
       {/* Events Grid */}
@@ -94,13 +92,13 @@ export default function EventsPage() {
       ) : events.length === 0 ? (
         <div className="text-center py-16">
           <Calendar className="mx-auto h-12 w-12 text-muted-foreground/50 mb-4" />
-          <p className="text-muted-foreground">{et.noEvents || 'No events found'}</p>
+          <p className="text-muted-foreground">{t('events.noEvents') || 'No events found'}</p>
         </div>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
-              <EventCard key={event._id} event={event} translations={et} />
+              <EventCard key={event._id} event={event} />
             ))}
           </div>
 
@@ -113,7 +111,7 @@ export default function EventsPage() {
                 disabled={page <= 1}
                 onClick={() => setPage((p) => p - 1)}
               >
-                {t.common?.back || 'Previous'}
+                {t('common.back')}
               </Button>
               <span className="flex items-center px-3 text-sm text-muted-foreground">
                 {page} / {totalPages} ({total})
@@ -124,7 +122,7 @@ export default function EventsPage() {
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => p + 1)}
               >
-                {t.common?.next || 'Next'}
+                {t('common.next')}
               </Button>
             </div>
           )}

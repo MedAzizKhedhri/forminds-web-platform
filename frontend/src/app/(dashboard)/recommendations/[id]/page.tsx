@@ -47,9 +47,6 @@ export default function MatchDetailPage() {
   const { matchDetail, isLoading, getMatchScore } = useMatching();
   const { user, isLoading: isAuthLoading } = useAuth();
   const { t } = useLocale();
-
-  const mt = t.matching || {};
-
   useEffect(() => {
     if (!isAuthLoading && user && user.role !== 'student') {
       router.replace('/dashboard');
@@ -80,7 +77,7 @@ export default function MatchDetailPage() {
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <Button variant="ghost" onClick={() => router.push('/recommendations')} className="gap-2">
         <ArrowLeft className="h-4 w-4" />
-        {mt.backToList || 'Back to Recommendations'}
+        {t('matching.backToList') || 'Back to Recommendations'}
       </Button>
 
       {/* Opportunity Header */}
@@ -111,7 +108,7 @@ export default function MatchDetailPage() {
       <Card className="border-2 border-primary/20">
         <CardContent className="p-8">
           <div className="flex flex-col items-center">
-            <h2 className="text-base font-medium text-muted-foreground mb-4">{mt.overallScore || 'Overall Match Score'}</h2>
+            <h2 className="text-base font-medium text-muted-foreground mb-4">{t('matching.overallScore') || 'Overall Match Score'}</h2>
             <div className="relative w-36 h-36 mb-4">
               <svg className="w-36 h-36 -rotate-90" viewBox="0 0 144 144">
                 <circle cx="72" cy="72" r="62" fill="none" stroke="currentColor" strokeWidth="10" className="text-secondary" />
@@ -144,28 +141,28 @@ export default function MatchDetailPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5" />
-            {mt.breakdown || 'Score Breakdown'}
+            {t('matching.breakdown') || 'Score Breakdown'}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
           <ProgressBar
-            label={mt.skills || 'Skills Match'}
+            label={t('matching.skills') || 'Skills Match'}
             score={matching.breakdown.skillsScore}
             icon={<Sparkles className="h-4 w-4 text-purple-500" />}
           />
           <ProgressBar
-            label={mt.location || 'Location Match'}
+            label={t('matching.location') || 'Location Match'}
             score={matching.breakdown.locationScore}
             icon={<MapPin className="h-4 w-4 text-blue-500" />}
           />
           <ProgressBar
-            label={mt.domain || 'Domain Match'}
+            label={t('matching.domain') || 'Domain Match'}
             score={matching.breakdown.domainScore}
             icon={<Briefcase className="h-4 w-4 text-orange-500" />}
           />
           {matching.breakdown.experienceScore !== undefined && (
             <ProgressBar
-              label={mt.experience || 'Experience Match'}
+              label={t('matching.experience') || 'Experience Match'}
               score={matching.breakdown.experienceScore}
               icon={<TrendingUp className="h-4 w-4 text-green-500" />}
             />
@@ -180,7 +177,7 @@ export default function MatchDetailPage() {
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2 text-green-700">
                 <CheckCircle2 className="h-5 w-5" />
-                {mt.matchedSkills || 'Matched Skills'}
+                {t('matching.matchedSkills') || 'Matched Skills'}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -199,7 +196,7 @@ export default function MatchDetailPage() {
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2 text-red-700">
                 <XCircle className="h-5 w-5" />
-                {mt.missingSkills || 'Missing Skills'}
+                {t('matching.missingSkills') || 'Missing Skills'}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -221,7 +218,7 @@ export default function MatchDetailPage() {
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              {mt.explanation || 'AI Analysis'}
+              {t('matching.explanation') || 'AI Analysis'}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -237,7 +234,7 @@ export default function MatchDetailPage() {
           className="gap-2"
           onClick={() => router.push(`/opportunities/${opportunity._id}`)}
         >
-          {mt.apply || 'Apply'}
+          {t('matching.apply') || 'Apply'}
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

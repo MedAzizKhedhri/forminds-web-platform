@@ -32,15 +32,15 @@ export default function CreateOpportunityPage() {
       const res = await createOpportunity(data);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.opportunities?.create || 'Opportunity created.',
+          title: t('common.success'),
+          description: t('opportunities.create'),
         });
         router.push('/opportunities/mine');
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to create opportunity.',
       });
     } finally {
@@ -63,11 +63,11 @@ export default function CreateOpportunityPage() {
         className="gap-2"
       >
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       <h1 className="text-2xl font-bold">
-        {t.opportunities?.create || 'Create Opportunity'}
+        {t('opportunities.create')}
       </h1>
 
       <OpportunityForm onSubmit={handleSubmit} isLoading={isSubmitting} />

@@ -18,13 +18,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useLocale } from '@/components/layout/LanguageSwitcher';
 
 interface EventFormProps {
   defaultValues?: Partial<CreateEventFormData>;
   onSubmit: (data: CreateEventFormData) => Promise<void>;
   isSubmitting?: boolean;
   submitLabel?: string;
-  translations?: Record<string, string | Record<string, string>>;
 }
 
 const eventTypes = ['conference', 'workshop', 'networking', 'webinar', 'career_fair'] as const;
@@ -34,8 +34,8 @@ export default function EventForm({
   onSubmit,
   isSubmitting,
   submitLabel = 'Create',
-  translations,
 }: EventFormProps) {
+  const { t } = useLocale();
   const {
     register,
     handleSubmit,
@@ -63,7 +63,7 @@ export default function EventForm({
 
   const isOnline = watch('isOnline');
   const currentImage = watch('image');
-  const typeLabels = (translations?.types || {}) as Record<string, string>;
+  const typeLabels = (t('events.types', { returnObjects: true }) || {}) as Record<string, string>;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(defaultValues?.image || null);
   const [isUploading, setIsUploading] = useState(false);
@@ -110,20 +110,20 @@ export default function EventForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="title">{(translations?.eventTitle as string) || 'Title'} *</Label>
+        <Label htmlFor="title">{t('events.eventTitle')} *</Label>
         <Input id="title" {...register('title')} placeholder="Event title" />
         {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description">{(translations?.description as string) || 'Description'} *</Label>
+        <Label htmlFor="description">{t('events.description')} *</Label>
         <Textarea id="description" {...register('description')} rows={4} placeholder="Describe the event..." />
         {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label>{(translations?.type as string) || 'Type'} *</Label>
+          <Label>{t('events.type')} *</Label>
           <Controller
             control={control}
             name="type"
@@ -146,7 +146,7 @@ export default function EventForm({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="location">{(translations?.location as string) || 'Location'} *</Label>
+          <Label htmlFor="location">{t('events.location')} *</Label>
           <Input id="location" {...register('location')} placeholder="City or venue" />
           {errors.location && <p className="text-sm text-destructive">{errors.location.message}</p>}
         </div>
@@ -154,19 +154,19 @@ export default function EventForm({
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="date">{(translations?.date as string) || 'Date'} *</Label>
+          <Label htmlFor="date">{t('events.date')} *</Label>
           <Input id="date" type="date" {...register('date')} />
           {errors.date && <p className="text-sm text-destructive">{errors.date.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="startTime">{(translations?.startTime as string) || 'Start Time'} *</Label>
+          <Label htmlFor="startTime">{t('events.startTime')} *</Label>
           <Input id="startTime" type="time" {...register('startTime')} />
           {errors.startTime && <p className="text-sm text-destructive">{errors.startTime.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="endTime">{(translations?.endTime as string) || 'End Time'} *</Label>
+          <Label htmlFor="endTime">{t('events.endTime')} *</Label>
           <Input id="endTime" type="time" {...register('endTime')} />
           {errors.endTime && <p className="text-sm text-destructive">{errors.endTime.message}</p>}
         </div>
@@ -174,13 +174,13 @@ export default function EventForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="capacity">{(translations?.capacity as string) || 'Capacity'} *</Label>
+          <Label htmlFor="capacity">{t('events.capacity')} *</Label>
           <Input id="capacity" type="number" min={1} {...register('capacity', { valueAsNumber: true })} />
           {errors.capacity && <p className="text-sm text-destructive">{errors.capacity.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label>{(translations?.image as string) || 'Event Image'}</Label>
+          <Label>{t('events.image')}</Label>
           <input
             ref={fileInputRef}
             type="file"
@@ -226,13 +226,13 @@ export default function EventForm({
           className="h-4 w-4 rounded border-gray-300"
         />
         <Label htmlFor="isOnline" className="cursor-pointer">
-          {(translations?.isOnline as string) || 'Online Event'}
+          {t('events.isOnline')}
         </Label>
       </div>
 
       {isOnline && (
         <div className="space-y-2">
-          <Label htmlFor="meetingUrl">{(translations?.meetingUrl as string) || 'Meeting URL'}</Label>
+          <Label htmlFor="meetingUrl">{t('events.meetingUrl')}</Label>
           <Input id="meetingUrl" {...register('meetingUrl')} placeholder="https://meet.google.com/..." />
           {errors.meetingUrl && <p className="text-sm text-destructive">{errors.meetingUrl.message}</p>}
         </div>

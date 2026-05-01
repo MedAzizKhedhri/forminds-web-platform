@@ -49,13 +49,13 @@ export default function DirectoryPage() {
       const res = await sendRequest(userId);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.network?.pending || 'Pending',
+          title: t('common.success'),
+          description: t('network.pending'),
         });
       }
     } catch (err) {
       const axiosErr = err as AxiosError<{ message?: string }>;
-      const message = axiosErr.response?.data?.message || t.common?.error || 'Error';
+      const message = axiosErr.response?.data?.message || t('common.error');
 
       setOptimisticPending((prev) => {
         const next = { ...prev };
@@ -64,12 +64,12 @@ export default function DirectoryPage() {
       });
 
       toast({
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: message,
         variant: 'destructive',
       });
     }
-  }, [optimisticPending, sendRequest, t.common, t.network, toast]);
+  }, [optimisticPending, sendRequest, t, toast]);
 
   // Merge backend connectionStatus with optimistic local state
   const profilesWithStatus = profiles.map((profile) => ({
@@ -84,7 +84,7 @@ export default function DirectoryPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
           <Search className="h-6 w-6" />
-          {t.directory?.title || 'Directory'}
+          {t('directory.title')}
         </h1>
       </div>
 

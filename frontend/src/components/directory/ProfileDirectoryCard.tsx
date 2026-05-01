@@ -99,8 +99,8 @@ export function ProfileDirectoryCard({
           >
             <UserPlus className="h-4 w-4 mr-2" />
             {connectionStatus === 'pending'
-              ? (t.network?.pending || 'Pending')
-              : (t.network?.connect || 'Connect')}
+              ? (t('network.pending'))
+              : (t('network.connect'))}
           </Button>
         )}
       </CardContent>

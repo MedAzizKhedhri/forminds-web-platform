@@ -22,9 +22,6 @@ export default function MyRegistrationPage() {
   const { event, registration, isLoading, getEvent, getMyRegistration } = useEvents();
   const { user } = useAuth();
   const { t } = useLocale();
-
-  const et = t.events || {};
-
   useEffect(() => {
     if (id) {
       getEvent(id);
@@ -47,12 +44,12 @@ export default function MyRegistrationPage() {
     <div className="p-6 max-w-2xl mx-auto space-y-6">
       <Button variant="ghost" onClick={() => router.back()} className="gap-2">
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       <div className="flex items-center gap-3">
         <Ticket className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold">{et.viewTicket || 'My Ticket'}</h1>
+        <h1 className="text-2xl font-bold">{t('events.viewTicket') || 'My Ticket'}</h1>
       </div>
 
       <Card className="overflow-hidden">
@@ -72,12 +69,12 @@ export default function MyRegistrationPage() {
                 {registration.checkedIn ? (
                   <Badge className="bg-green-100 text-green-800 gap-1">
                     <CheckCircle2 className="h-3 w-3" />
-                    {et.checkedIn || 'Checked In'}
+                    {t('events.checkedIn') || 'Checked In'}
                   </Badge>
                 ) : (
                   <Badge variant="secondary" className="gap-1">
                     <XCircle className="h-3 w-3" />
-                    {et.notCheckedIn || 'Not Checked In'}
+                    {t('events.notCheckedIn') || 'Not Checked In'}
                   </Badge>
                 )}
               </div>

@@ -42,15 +42,15 @@ export default function EditOpportunityPage() {
       const res = await updateOpportunity(id, data);
       if (res.success) {
         toast({
-          title: t.common?.success || 'Success',
-          description: t.opportunities?.edit || 'Opportunity updated.',
+          title: t('common.success'),
+          description: t('opportunities.edit'),
         });
         router.push(`/opportunities/${id}`);
       }
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to update opportunity.',
       });
     } finally {
@@ -89,11 +89,11 @@ export default function EditOpportunityPage() {
         className="gap-2"
       >
         <ArrowLeft className="h-4 w-4" />
-        {t.common?.back || 'Back'}
+        {t('common.back')}
       </Button>
 
       <h1 className="text-2xl font-bold">
-        {t.opportunities?.edit || 'Edit Opportunity'}
+        {t('opportunities.edit')}
       </h1>
 
       <OpportunityForm

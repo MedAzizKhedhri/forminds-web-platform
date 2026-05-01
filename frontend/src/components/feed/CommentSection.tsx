@@ -44,7 +44,7 @@ export function CommentSection({
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to load comments.',
       });
     } finally {
@@ -70,7 +70,7 @@ export function CommentSection({
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to add comment.',
       });
     } finally {
@@ -87,7 +87,7 @@ export function CommentSection({
     } catch {
       toast({
         variant: 'destructive',
-        title: t.common?.error || 'Error',
+        title: t('common.error'),
         description: 'Failed to delete comment.',
       });
     }
@@ -112,11 +112,11 @@ export function CommentSection({
         <div className="mt-3 space-y-1 border-t pt-3">
           {isLoadingComments ? (
             <p className="text-sm text-muted-foreground py-2">
-              {t.common?.loading || 'Loading...'}
+              {t('common.loading')}
             </p>
           ) : comments.length === 0 ? (
             <p className="text-sm text-muted-foreground py-2">
-              {t.feed?.comments || 'Comments'} (0)
+              {t('feed.comments')} (0)
             </p>
           ) : (
             <div className="space-y-1">

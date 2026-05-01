@@ -19,7 +19,7 @@ const statusStyles: Record<ApplicationStatusBadgeProps['status'], string> = {
 export function ApplicationStatusBadge({ status }: ApplicationStatusBadgeProps) {
   const { t } = useLocale();
 
-  const label = t.applications?.status?.[status] ?? status;
+  const label = t(`applications.status_${status}`);
 
   return (
     <Badge
