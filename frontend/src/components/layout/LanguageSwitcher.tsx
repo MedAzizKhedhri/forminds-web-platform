@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -383,7 +383,15 @@ export function getTranslations(locale: Locale) {
   return translations[locale];
 }
 
-export function useLocale() {
+export interface LanguageContextType {
+  locale: Locale;
+  setLocale: (l: Locale) => void;
+  t: Record<string, any>;
+}
+
+const LanguageContext = React.createContext<LanguageContextType | undefined>(undefined);
+
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
 
   useEffect(() => {
@@ -394,16 +402,29 @@ export function useLocale() {
     setLocaleState(l);
     if (typeof window !== 'undefined') {
       localStorage.setItem('for-minds-locale', l);
-    }
-    document.documentElement.lang = l;
-    if (typeof window !== 'undefined') {
-       window.location.reload();
+      document.documentElement.lang = l;
     }
   };
 
   const t = getTranslations(locale);
 
-  return { locale, setLocale, t };
+  return (
+    <LanguageContext.Provider value={{ locale, setLocale, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLocale() {
+  const context = React.useContext(LanguageContext);
+  if (!context) {
+    return {
+      locale: 'en' as Locale,
+      setLocale: () => {},
+      t: getTranslations('en')
+    };
+  }
+  return context;
 }
 
 export function LanguageSwitcher({ onLocaleChange }: { onLocaleChange?: () => void }) {
